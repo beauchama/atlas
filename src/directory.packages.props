@@ -3,26 +3,6 @@
 
   <ItemGroup Label="Common packages">
     <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.1.1" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0-rc.1.23419.4" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0-rc.1.23419.4" />
-    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0-rc.1.23419.4" />
   </ItemGroup>
 
-  <ItemGroup Label="Migration packages">
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.1.23419.4" />
-  </ItemGroup>
-
-  <ItemGroup Label="Application packages">
-    <PackageReference Include="MediatR" Version="10.0.1" />
-    <PackageReference Include="FluentValidation" Version="10.4.0" />
-  </ItemGroup>
-
-  <ItemGroup Label="UI packages">
-    <PackageVersion Include="DartSassBuilder" Version="1.0.0" />
-    <PackageVersion Include="Fluxor.Blazor.Web" Version="5.9.1" />
-    <PackageVersion Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.9.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-rc.1.23421.29" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-rc.1.23421.29" />
-    <PackageVersion Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
-  </ItemGroup>
 </Project>
