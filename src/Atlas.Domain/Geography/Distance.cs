@@ -1,7 +1,9 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-namespace Atlas.Domain.Distances;
+using Atlas.Domain.Extensions;
+
+namespace Atlas.Domain.Geography;
 
 public sealed record Distance
 {
@@ -15,14 +17,22 @@ public sealed record Distance
 
     public DistanceUnit Unit { get; }
 
-    public static Distance Calculate(GeographicCoordinate from, GeographicCoordinate to, DistanceUnit unit)
+    /// <summary>
+    /// Calculate the distance between two coordinates based on Haversine formula.
+    /// https://www.movable-type.co.uk/scripts/latlong.html.
+    /// </summary>
+    /// <param name="from">the coordinate of from.</param>
+    /// <param name="to">the coordinate of to.</param>
+    /// <param name="unit">the unit of the distance.</param>
+    /// <returns>The distance between two coordinates in the specified unit.</returns>
+    internal static Distance Calculate(GeographicCoordinate from, GeographicCoordinate to, DistanceUnit unit)
     {
         double earthRadius = GetEarthRadius(unit);
 
-        double deltaLatitude = ToRadians(to.Latitude - from.Latitude);
-        double deltaLongitude = ToRadians(to.Longitude - from.Longitude);
-        double fromLatitude = ToRadians(from.Latitude);
-        double toLatitude = ToRadians(to.Latitude);
+        double deltaLatitude = (to.Latitude - from.Latitude).ToRadians();
+        double deltaLongitude = (to.Longitude - from.Longitude).ToRadians();
+        double fromLatitude = from.Latitude.ToRadians();
+        double toLatitude = to.Latitude.ToRadians();
 
         double sinLatitude = Math.Sin(deltaLatitude / 2);
         double sinLongitude = Math.Sin(deltaLongitude / 2);
@@ -31,8 +41,6 @@ public sealed record Distance
         double c = 2 * Math.Asin(Math.Sqrt(a));
 
         return new(earthRadius * c, unit);
-
-        static double ToRadians(double degrees) => Math.PI * degrees / 180.0;
     }
 
     private static double GetEarthRadius(DistanceUnit unit)
