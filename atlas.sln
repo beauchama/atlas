@@ -61,13 +61,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EEE4BBDC
 		tests\directory.packages.props = tests\directory.packages.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Domain", "src\Atlas.Domain\Atlas.Domain.csproj", "{098F2C49-85DF-47CE-8108-485E805634CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Domain.Tests", "tests\Atlas.Domain.Tests\Atlas.Domain.Tests.csproj", "{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{098F2C49-85DF-47CE-8108-485E805634CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098F2C49-85DF-47CE-8108-485E805634CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098F2C49-85DF-47CE-8108-485E805634CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098F2C49-85DF-47CE-8108-485E805634CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{527BDB4D-7B8F-4710-9521-44457E8B588D} = {38B9191F-DC6F-476A-939E-A43C26167758}
 		{10A39F60-ED05-4E3A-BF77-45F6C13D76AC} = {39C5B0F6-F76D-4125-96F4-5380189C72D2}
+		{098F2C49-85DF-47CE-8108-485E805634CF} = {A5D93123-6F57-456C-A1CC-9A54F8829900}
+		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B} = {EEE4BBDC-A733-49F0-8D24-2422D014FCF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27834526-00AF-40D7-BD1F-4286BED4E298}
