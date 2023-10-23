@@ -3,6 +3,7 @@
 
   <ItemGroup Label="Make internals visible to test project">
     <InternalsVisibleTo Include="$(AssemblyName).Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
   <ItemGroup Label="Enabling reproducible builds">

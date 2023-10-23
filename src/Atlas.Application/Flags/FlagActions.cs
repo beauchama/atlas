@@ -10,4 +10,8 @@ public static class FlagActions
     public sealed record GetAllRequest;
 
     public sealed record GetAllResponse(IEnumerable<Flag> Flags);
+
+    public sealed record RandomizeRequest;
+
+    public sealed record RandomizeResponse(string Code);
 }

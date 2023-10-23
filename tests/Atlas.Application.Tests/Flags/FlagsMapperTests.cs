@@ -1,24 +1,14 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
+using Atlas.Application.Fakes;
 using Atlas.Web.Shared.Flags;
 
 namespace Atlas.Application.Flags;
 
 public class FlagsMapperTests
 {
-    private readonly Domain.Flags.Flag _flag = new()
-    {
-        Code = "can",
-        Translations = new Domain.Flags.Translations()
-        {
-            English = new Domain.Flags.Translation("eng", "Canada", "Canada"),
-            French = new Domain.Flags.Translation("fra", "Canada", "Canada")
-        },
-        Continent = Domain.Flags.Continent.America,
-        Coordinate = new Domain.Geography.GeographicCoordinate(42.0, 42.0),
-        Area = 10.0,
-    };
+    private readonly Domain.Flags.Flag _flag = FakeFlag.CanadaFlag;
 
     [Fact]
     public void MapToSharedShouldMapEntityToShared()
