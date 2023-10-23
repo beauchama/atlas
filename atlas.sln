@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Application", "src\At
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Application.Tests", "tests\Atlas.Application.Tests\Atlas.Application.Tests.csproj", "{5D96AB32-D7E7-42A3-A01A-D510BEB7EB47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Web.Shared", "src\Atlas.Web.Shared\Atlas.Web.Shared.csproj", "{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{5D96AB32-D7E7-42A3-A01A-D510BEB7EB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D96AB32-D7E7-42A3-A01A-D510BEB7EB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D96AB32-D7E7-42A3-A01A-D510BEB7EB47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 		{9ACEA600-C0E1-49CE-8533-DF73A6A6E94B} = {EEE4BBDC-A733-49F0-8D24-2422D014FCF2}
 		{134E7668-C119-4C5F-B9F1-03E7044CA1C9} = {A5D93123-6F57-456C-A1CC-9A54F8829900}
 		{5D96AB32-D7E7-42A3-A01A-D510BEB7EB47} = {EEE4BBDC-A733-49F0-8D24-2422D014FCF2}
+		{0DF7186E-8F36-43EB-BE28-B4D5B0D6AD6E} = {A5D93123-6F57-456C-A1CC-9A54F8829900}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27834526-00AF-40D7-BD1F-4286BED4E298}

@@ -5,4 +5,7 @@
     <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup Label="Application packages">
+    <PackageVersion Include="Fluxor" Version="5.9.1" />
+  </ItemGroup>
 </Project>
