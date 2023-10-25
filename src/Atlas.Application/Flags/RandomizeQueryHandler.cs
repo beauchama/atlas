@@ -1,7 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Application.Flags.Abstractions;
+using Atlas.Application.Flags.Persistence;
 using Atlas.Application.Utilities;
 using Atlas.Domain.Flags;
 using Fluxor;

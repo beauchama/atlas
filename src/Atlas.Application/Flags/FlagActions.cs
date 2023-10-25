@@ -11,6 +11,10 @@ public static class FlagActions
 
     public sealed record GetAllResponse(IEnumerable<Flag> Flags);
 
+    public sealed record GuessRequest(string FlagCode, string GuessedFlagCode);
+
+    public sealed record GuessResponse(GuessedFlag GuessedFlag);
+
     public sealed record RandomizeRequest;
 
     public sealed record RandomizeResponse(string Code);

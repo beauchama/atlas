@@ -3,9 +3,11 @@
 
 using Atlas.Domain.Flags;
 
-namespace Atlas.Application.Flags.Abstractions;
+namespace Atlas.Application.Flags.Persistence;
 
 public interface IFlagRepository
 {
+    Task<Flag> GetAsync(string code);
+
     Task<IEnumerable<Flag>> GetAllAsync();
 }

@@ -2,10 +2,11 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Fakes;
-using Atlas.Application.Flags.Abstractions;
+using Atlas.Application.Flags.Persistence;
 using Atlas.Application.Utilities;
 using Atlas.Domain.Flags;
 using Fluxor;
+using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags;
 
@@ -29,7 +30,7 @@ public class RandomizeQueryHandlerTests
     {
         await _handler.HandleAsync(_dispatcher);
 
-        await _flagRepository.Received(1).GetAllAsync();
+        await _flagRepository.Received(Quantity.Exactly(1)).GetAllAsync();
     }
 
     [Fact]
@@ -41,7 +42,7 @@ public class RandomizeQueryHandlerTests
 
         await _handler.HandleAsync(_dispatcher);
 
-        _randomizer.Received(1).Randomize(flags);
+        _randomizer.Received(Quantity.Exactly(1)).Randomize(flags);
     }
 
     [Fact]
@@ -55,6 +56,6 @@ public class RandomizeQueryHandlerTests
 
         await _handler.HandleAsync(_dispatcher);
 
-        _dispatcher.Received(1).Dispatch(Arg.Is<FlagActions.RandomizeResponse>(f => f.Code == flag.Code));
+        _dispatcher.Received(Quantity.Exactly(1)).Dispatch(Arg.Is<FlagActions.RandomizeResponse>(f => f.Code == flag.Code));
     }
 }
