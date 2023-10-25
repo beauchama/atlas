@@ -1,4 +1,4 @@
-﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
+// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
 using Atlas.Domain.Geography;
@@ -10,6 +10,8 @@ public sealed record GuessedFlag
     public required string Code { get; init; }
 
     public required Translations Translations { get; init; }
+
+    public bool IsSuccess { get; init; }
 
     public AreaSize Size { get; init; }
 

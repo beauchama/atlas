@@ -15,6 +15,11 @@ dotnet_diagnostic.CA1062.severity = none
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1716
 dotnet_diagnostic.CA1716.severity = none
 
+# CA1724: Type names should not match namespaces
+# Doesn't violate the rule
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1724
+dotnet_diagnostic.CA1724.severity = none
+
 # CA1812: Avoid uninstantiated internal classes
 # Theses classes are used by the DI container
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1812
