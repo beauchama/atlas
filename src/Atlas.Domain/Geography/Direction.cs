@@ -11,6 +11,8 @@ public sealed record Direction
 
     private Direction(double angle) => _angle = angle;
 
+    public static Direction Zero { get; } = new(0.0);
+
     public static implicit operator double(Direction direction) => direction.ToDouble();
 
     /// <summary>
@@ -20,10 +22,10 @@ public sealed record Direction
     /// <param name="from">The coordinate of from.</param>
     /// <param name="to">The coordinate of to.</param>
     /// <returns>The normalized direction to be within [0, 360] degrees.</returns>
-    internal static Direction Calculate(GeographicCoordinate from, GeographicCoordinate to)
+    public static Direction Calculate(GeographicCoordinate from, GeographicCoordinate to)
     {
         if (from == to)
-            return new(0.0);
+            return Zero;
 
         double deltaLatitude = CalculateDeltaLatitude(from.Latitude, to.Latitude);
         double deltaLongitude = CalculateDeltaLongitude(from.Longitude, to.Longitude);

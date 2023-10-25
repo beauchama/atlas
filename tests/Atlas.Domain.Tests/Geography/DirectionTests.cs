@@ -44,4 +44,12 @@ public class DirectionTests
 
         direction.Should().Be(0.0);
     }
+
+    [Fact]
+    public void DirectionZeroShouldReturnZero()
+    {
+        double direction = Direction.Zero;
+
+        direction.Should().Be(0.0);
+    }
 }

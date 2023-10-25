@@ -7,15 +7,17 @@ namespace Atlas.Domain.Geography;
 
 public sealed record Distance
 {
-    private Distance(double length, DistanceUnit unit)
+    private Distance(double kilometers, double miles)
     {
-        Length = length;
-        Unit = unit;
+        Kilometers = kilometers;
+        Miles = miles;
     }
 
-    public double Length { get; }
+    public static Distance Zero { get; } = new(0, 0);
 
-    public DistanceUnit Unit { get; }
+    public double Kilometers { get; }
+
+    public double Miles { get; }
 
     /// <summary>
     /// Calculate the distance between two coordinates based on Haversine formula.
@@ -23,11 +25,14 @@ public sealed record Distance
     /// </summary>
     /// <param name="from">the coordinate of from.</param>
     /// <param name="to">the coordinate of to.</param>
-    /// <param name="unit">the unit of the distance.</param>
     /// <returns>The distance between two coordinates in the specified unit.</returns>
-    internal static Distance Calculate(GeographicCoordinate from, GeographicCoordinate to, DistanceUnit unit)
+    public static Distance Calculate(GeographicCoordinate from, GeographicCoordinate to)
     {
-        double earthRadius = GetEarthRadius(unit);
+        if (from == to)
+            return Zero;
+
+        const double earthRadiusInMiles = 3958.8;
+        const double earthRadiusInKilometers = 6371.0;
 
         double deltaLatitude = (to.Latitude - from.Latitude).ToRadians();
         double deltaLongitude = (to.Longitude - from.Longitude).ToRadians();
@@ -40,16 +45,6 @@ public sealed record Distance
         double a = (sinLatitude * sinLatitude) + (sinLongitude * sinLongitude * Math.Cos(fromLatitude) * Math.Cos(toLatitude));
         double c = 2 * Math.Asin(Math.Sqrt(a));
 
-        return new(earthRadius * c, unit);
-    }
-
-    private static double GetEarthRadius(DistanceUnit unit)
-    {
-        const double earthRadiusInMiles = 3958.8;
-        const double earthRadiusInKilometers = 6371.0;
-
-        return unit == DistanceUnit.Kilometers
-            ? earthRadiusInKilometers
-            : earthRadiusInMiles;
+        return new(earthRadiusInKilometers * c, earthRadiusInMiles * c);
     }
 }
