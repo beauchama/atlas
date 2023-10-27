@@ -6,5 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fluxor" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+    <PackageReference Include="Scrutor" />
   </ItemGroup>
 </Project>
