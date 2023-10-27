@@ -1,5 +1,10 @@
 is_global = true
 
+# SA1010: Opening square brackets should not be preceded by a space
+# C#12 offer collection expression and cause conflict with this rule
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1010.md
+dotnet_diagnostic.SA1010.severity = none
+
 # SA1101: Prefix local calls with this
 # No need to use 'this' because of underscore field style
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1101.md

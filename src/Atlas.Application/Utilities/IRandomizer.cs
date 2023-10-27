@@ -1,10 +1,9 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-namespace Atlas.Domain.Geography;
+namespace Atlas.Application.Utilities;
 
-public enum DistanceUnit
+internal interface IRandomizer
 {
-    Kilometers = 0,
-    Miles = 1
+    T Randomize<T>(IEnumerable<T> source);
 }
