@@ -12,11 +12,11 @@ namespace Atlas.Infrastructure.Settings.Validations;
 [ExcludeFromCodeCoverage]
 public static class OptionsBuilderExtensions
 {
-    public static IServiceCollection AddFluentOptions<TOptions, TValidator>(this IServiceCollection services, string? name, string configSectionPath)
+    public static IServiceCollection AddFluentOptions<TOptions, TValidator>(this IServiceCollection services, string configSectionPath)
         where TOptions : class
         where TValidator : class, IValidator<TOptions>
     {
-        _ = services.AddOptions<TOptions>(name)
+        _ = services.AddOptions<TOptions>()
             .BindConfiguration(configSectionPath)
             .AddFluentValidations<TOptions, TValidator>()
             .ValidateOnStart();
