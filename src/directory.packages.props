@@ -10,4 +10,7 @@
     <PackageVersion Include="Fluxor" Version="5.9.1" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
+  <ItemGroup Label="Migration packages">
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.2.23479.6" />
+  </ItemGroup>
 </Project>
