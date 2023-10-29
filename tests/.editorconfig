@@ -2,6 +2,14 @@
 
 # Disabled Meziantou.Analyzer rules
 
+# MA0004: Use Task.ConfigureAwait(false)
+# Reason: Don't need to use ConfigureAwait(false) for test methods
+dotnet_diagnostic.MA0004.severity = none
+
+# Reason: Don't need to make test classes sealed
+# https://github.com/meziantou/Meziantou.Analyzer/blob/main/docs/Rules/MA0053.md
+dotnet_diagnostic.MA0053.severity = none
+
 # MA0053: Make class sealed
 # Reason: Don't need to make test classes sealed
 # https://github.com/meziantou/Meziantou.Analyzer/blob/main/docs/Rules/MA0053.md
