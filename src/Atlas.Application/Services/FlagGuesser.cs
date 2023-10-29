@@ -10,7 +10,7 @@ internal sealed class FlagGuesser : IFlagGuesser
 {
     public GuessedFlag Guess(Flag flagToGuess, Flag guessedFlag)
     {
-        return flagToGuess.Code.Equals(guessedFlag.Code, StringComparison.OrdinalIgnoreCase)
+        return flagToGuess.Code.Equals(guessedFlag.Code, StringComparison.Ordinal)
             ? Guessed(guessedFlag)
             : FailedToGuess(flagToGuess, guessedFlag);
     }
