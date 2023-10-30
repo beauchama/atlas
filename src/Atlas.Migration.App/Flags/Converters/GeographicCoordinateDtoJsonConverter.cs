@@ -1,6 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
+using Atlas.Migration.App.Flags.Dto;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

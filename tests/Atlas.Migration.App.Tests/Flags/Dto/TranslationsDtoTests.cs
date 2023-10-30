@@ -4,7 +4,7 @@
 using Atlas.Migration.App.Extensions;
 using System.Text.Json.Serialization;
 
-namespace Atlas.Migration.App.Flags;
+namespace Atlas.Migration.App.Flags.Dto;
 
 public class TranslationsDtoTests
 {

@@ -4,7 +4,7 @@
 using Atlas.Migration.App.Flags.Converters;
 using System.Text.Json.Serialization;
 
-namespace Atlas.Migration.App.Flags;
+namespace Atlas.Migration.App.Flags.Dto;
 
 internal sealed record FlagDto
 {

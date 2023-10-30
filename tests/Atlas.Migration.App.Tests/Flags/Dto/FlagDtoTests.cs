@@ -7,7 +7,7 @@ using Atlas.Migration.App.Fixtures;
 using Atlas.Migration.App.Flags.Converters;
 using System.Text.Json.Serialization;
 
-namespace Atlas.Migration.App.Flags;
+namespace Atlas.Migration.App.Flags.Dto;
 
 public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<SampleDeserializer>
 {
