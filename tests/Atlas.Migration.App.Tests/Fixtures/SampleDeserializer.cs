@@ -1,6 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
@@ -17,4 +18,6 @@ public sealed class SampleDeserializer
     }
 
     internal T Deserialize<T>(string country, JsonTypeInfo<T> metadata) => JsonSerializer.Deserialize(_samples[country], metadata)!;
+
+    internal string GetSampleAsJson(string country) => $"[{Encoding.UTF8.GetString(_samples[country])}]";
 }

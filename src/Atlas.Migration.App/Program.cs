@@ -13,6 +13,7 @@ builder.Logging.ClearProviders().AddConsole();
 
 builder.Services
     .Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true)
+    .AddFlagsMigration()
     .AddIO();
 
 await builder.Build().RunAsync().ConfigureAwait(false);

@@ -3,7 +3,7 @@
 
 namespace Atlas.Infrastructure.Flags.Settings;
 
-internal sealed record FlagSourceSettings
+public sealed record FlagSourceSettings
 {
     public const string Section = "sources:flags";
 
