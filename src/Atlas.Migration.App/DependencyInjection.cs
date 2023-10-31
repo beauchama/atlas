@@ -1,6 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
+using Atlas.Domain.Flags;
 using Atlas.Infrastructure.Flags.Settings;
 using Atlas.Migration.App.Flags;
 using Atlas.Migration.App.Utilities;
@@ -21,7 +22,10 @@ internal static class DependencyInjection
             client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
         });
 
-        return services.ConfigureFlagSourceSettings();
+        return services
+            .AddTransient<IMigrator, FlagMigrator>()
+            .ConfigureJson<IEnumerable<Flag>>()
+            .ConfigureFlagSourceSettings();
     }
 
     internal static IServiceCollection AddIO(this IServiceCollection services)
@@ -31,7 +35,7 @@ internal static class DependencyInjection
             .AddTransient<IDirectory, Utilities.Directory>();
     }
 
-    internal static IServiceCollection ConfigureJson<T>(this IServiceCollection services) where T : class
+    private static IServiceCollection ConfigureJson<T>(this IServiceCollection services) where T : class
     {
         return services
             .AddTransient<IJsonSerializer<T>, JsonSerializer<T>>()
