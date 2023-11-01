@@ -6,6 +6,8 @@ using Atlas.Infrastructure.Flags.Settings;
 using Atlas.Migration.App.Flags;
 using Atlas.Migration.App.Utilities;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
@@ -28,11 +30,19 @@ internal static class DependencyInjection
             .ConfigureFlagSourceSettings();
     }
 
-    internal static IServiceCollection AddIO(this IServiceCollection services)
+    internal static IServiceCollection AddApp(this IServiceCollection services)
     {
         return services
+            .AddHostedService<AtlasApplication>()
+            .Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true)
             .AddTransient<IFile, Utilities.File>()
             .AddTransient<IDirectory, Utilities.Directory>();
+    }
+
+    internal static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder)
+    {
+        return builder.ClearProviders()
+            .AddConsole();
     }
 
     private static IServiceCollection ConfigureJson<T>(this IServiceCollection services) where T : class

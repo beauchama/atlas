@@ -5,7 +5,7 @@ namespace Atlas.Infrastructure;
 
 public static class JsonPaths
 {
-    public const string Flags = $"{DataFolder}/flags.json";
+    public const string DataFolder = "_data";
 
-    private const string DataFolder = "_data";
+    public const string Flags = "flags.json";
 }
