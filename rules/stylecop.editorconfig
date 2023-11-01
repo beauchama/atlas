@@ -10,6 +10,11 @@ dotnet_diagnostic.SA1010.severity = none
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1101.md
 dotnet_diagnostic.SA1101.severity = none
 
+# SA1133: Each attribute should be placed in its own set of square brackets
+# No need to put each attribute on its own line
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1133.md
+dotnet_diagnostic.SA1133.severity = none
+
 # SA1127: Generic type constraints should be on their own line
 # No need to put constraints on their own line
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1127.md

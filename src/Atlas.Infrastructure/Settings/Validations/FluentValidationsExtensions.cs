@@ -5,8 +5,8 @@ using FluentValidation;
 
 namespace Atlas.Infrastructure.Settings.Validations;
 
-public static class FluentValidationsExtensions
+internal static class FluentValidationsExtensions
 {
-    public static IRuleBuilderOptions<T, Uri> Https<T>(this IRuleBuilder<T, Uri> builder)
+    internal static IRuleBuilderOptions<T, Uri> Https<T>(this IRuleBuilder<T, Uri> builder)
         => builder.Must(uri => uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.Ordinal));
 }
