@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <NoWarn>AD0001</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

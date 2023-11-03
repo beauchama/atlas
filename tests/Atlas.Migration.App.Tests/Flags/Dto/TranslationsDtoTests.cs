@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags.Dto;
 
-public class TranslationsDtoTests
+public sealed class TranslationsDtoTests
 {
     [Fact]
     public void PropertyFrenchShouldHaveJsonPropertyNameAttribute()

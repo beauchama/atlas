@@ -16,8 +16,8 @@ internal static class FlagMapper
         Code = flag.Code,
         Translations = new Translations()
         {
-            English = new Translation("eng", flag.Name.Common, flag.Name.Official),
-            French = new Translation("fra", flag.Translations.French.Common, flag.Translations.French.Official)
+            English = new Translation(flag.Name.Common, flag.Name.Official),
+            French = new Translation(flag.Translations.French.Common, flag.Translations.French.Official)
         },
         Continent = flag.Region switch
         {

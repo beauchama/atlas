@@ -9,16 +9,9 @@ using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags.Dto;
 
-public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<SampleDeserializer>
+public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<SampleDeserializer>
 {
-    public static TheoryData<string, ICountryData> Countries { get; } = new()
-    {
-        { nameof(Italy), new Italy() },
-        { nameof(SouthAfrica), new SouthAfrica() },
-        { nameof(Antarctica), new Antarctica() }
-    };
-
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheCommonCountryName(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -26,7 +19,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         flag.Name.Common.Should().Be(countryData.Common);
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheOfficialCountryName(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -42,7 +35,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         attribute!.Name.Should().Be("cca3");
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheCountryCode(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -50,7 +43,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         flag.Code.Should().Be(countryData.CountryCode3);
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheRegion(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -58,7 +51,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         flag.Region.Should().Be(countryData.Region);
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheFrenchTranslation(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -86,7 +79,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         attribute!.ConverterType.Should().Be<GeographicCoordinateDtoJsonConverter>();
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheGeographicCoordinate(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -97,7 +90,7 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
         longitude.Should().Be(countryData.Longitude);
     }
 
-    [Theory, MemberData(nameof(Countries))]
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheArea(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -107,4 +100,14 @@ public class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<Sampl
 
     private FlagDto DeserializeToFlagDto(string country)
         => deserializer.Deserialize(country, FlagDtoJsonContext.Default.FlagDto);
+}
+
+file sealed class Countries : TheoryData<string, ICountryData>
+{
+    public Countries()
+    {
+        Add(nameof(Italy), new Italy());
+        Add(nameof(SouthAfrica), new SouthAfrica());
+        Add(nameof(Antarctica), new Antarctica());
+    }
 }

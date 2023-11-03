@@ -1,14 +1,13 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Infrastructure.Fakes;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 
 namespace Atlas.Infrastructure.Settings.Validations;
 
-public class FluentValidateOptionsTests
+public sealed class FluentValidateOptionsTests
 {
     private readonly FakeSettings _settings = new("Name");
     private readonly IValidator<FakeSettings> _validator = Substitute.For<IValidator<FakeSettings>>();
@@ -71,4 +70,6 @@ public class FluentValidateOptionsTests
         result.Failed.Should().BeTrue();
         result.FailureMessage.Should().Be(validationResult.ToString());
     }
+
+    public record FakeSettings(string Name);
 }

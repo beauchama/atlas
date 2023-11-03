@@ -8,10 +8,11 @@ using Atlas.Migration.App.Fakes;
 using Atlas.Migration.App.Fixtures;
 using Atlas.Migration.App.Flags.Dto;
 using Atlas.Migration.App.Utilities;
+using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Migration.App.Flags;
 
-public class FlagMigratorTests : IClassFixture<SampleDeserializer>
+public sealed class FlagMigratorTests : IClassFixture<SampleDeserializer>
 {
     private readonly IJsonFileWriter<IEnumerable<Flag>> _jsonFileWriter = Substitute.For<IJsonFileWriter<IEnumerable<Flag>>>();
     private readonly IFlagRetriever _flagRetriever = Substitute.For<IFlagRetriever>();
@@ -37,7 +38,7 @@ public class FlagMigratorTests : IClassFixture<SampleDeserializer>
     {
         await _migrator.MigrateAsync(JsonPaths.Flags, default);
 
-        await _flagRetriever.Received(1).GetAllAsync(default);
+        await _flagRetriever.Received(Quantity.Exactly(1)).GetAllAsync(default);
     }
 
     [Fact]
@@ -50,6 +51,8 @@ public class FlagMigratorTests : IClassFixture<SampleDeserializer>
 
         await _migrator.MigrateAsync(JsonPaths.Flags, default);
 
-        await _jsonFileWriter.Received(1).WriteToAsync(JsonPaths.Flags, Arg.Is<IEnumerable<Flag>>(x => x.First().Code == italy.Code), FlagJsonContext.Default.IEnumerableFlag, default);
+        await _jsonFileWriter
+            .Received(Quantity.Exactly(1))
+            .WriteToAsync(JsonPaths.Flags, Arg.Is<IEnumerable<Flag>>(x => x.First().Code == italy.Code), FlagJsonContext.Default.IEnumerableFlag, default);
     }
 }

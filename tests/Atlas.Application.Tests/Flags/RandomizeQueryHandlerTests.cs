@@ -10,7 +10,7 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags;
 
-public class RandomizeQueryHandlerTests
+public sealed class RandomizeQueryHandlerTests
 {
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();
     private readonly IRandomizer _randomizer = Substitute.For<IRandomizer>();

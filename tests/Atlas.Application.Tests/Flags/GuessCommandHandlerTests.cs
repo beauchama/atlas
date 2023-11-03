@@ -9,7 +9,7 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags;
 
-public class GuessCommandHandlerTests
+public sealed class GuessCommandHandlerTests
 {
     private readonly FlagActions.GuessRequest _request = new("can", "ita");
 

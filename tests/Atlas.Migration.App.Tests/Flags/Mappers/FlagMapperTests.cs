@@ -6,7 +6,7 @@ using Atlas.Migration.App.Flags.Dto;
 
 namespace Atlas.Migration.App.Flags.Mappers;
 
-public class FlagMapperTests
+public sealed class FlagMapperTests
 {
     private readonly FlagDto _flag = new()
     {
@@ -24,10 +24,8 @@ public class FlagMapperTests
         Flag flag = new FlagDto[] { _flag }.MapToDomain().First();
 
         flag.Code.Should().Be(_flag.Code);
-        flag.Translations.English.Code.Should().Be("eng");
         flag.Translations.English.Name.Should().Be(_flag.Name.Common);
         flag.Translations.English.OfficialName.Should().Be(_flag.Name.Official);
-        flag.Translations.French.Code.Should().Be("fra");
         flag.Translations.French.Name.Should().Be(_flag.Translations.French.Common);
         flag.Translations.French.OfficialName.Should().Be(_flag.Translations.French.Official);
         flag.Continent.Should().Be(Continent.America);
@@ -36,18 +34,25 @@ public class FlagMapperTests
         flag.Area.Should().Be(_flag.Area);
     }
 
-    [Theory]
-    [InlineData("Americas", Continent.America)]
-    [InlineData("Europe", Continent.Europe)]
-    [InlineData("Asia", Continent.Asia)]
-    [InlineData("Africa", Continent.Africa)]
-    [InlineData("Oceania", Continent.Oceania)]
-    [InlineData("Antarctic", Continent.Antarctic)]
-    [InlineData("Region", Continent.America)]
+    [Theory, ClassData(typeof(Continents))]
     public void MapToDomainShouldConvertCorrectlyTheContinent(string region, Continent continent)
     {
         Flag flag = new FlagDto[] { _flag with { Region = region } }.MapToDomain().First();
 
         flag.Continent.Should().Be(continent);
+    }
+}
+
+file sealed class Continents : TheoryData<string, Continent>
+{
+    public Continents()
+    {
+        Add("Americas", Continent.America);
+        Add("Europe", Continent.Europe);
+        Add("Asia", Continent.Asia);
+        Add("Africa", Continent.Africa);
+        Add("Oceania", Continent.Oceania);
+        Add("Antarctic", Continent.Antarctic);
+        Add("Region", Continent.America);
     }
 }

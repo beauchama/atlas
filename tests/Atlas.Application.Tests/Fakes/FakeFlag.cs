@@ -13,8 +13,8 @@ internal static class FakeFlag
         Code = "can",
         Translations = new Translations()
         {
-            English = new Translation("eng", "Canada", "Canada"),
-            French = new Translation("fra", "Canada", "Canada")
+            English = new Translation("Canada", "Canada"),
+            French = new Translation("Canada", "Canada")
         },
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(60, -95),
@@ -26,8 +26,8 @@ internal static class FakeFlag
         Code = "usa",
         Translations = new Translations()
         {
-            English = new Translation("eng", "USA", "USA"),
-            French = new Translation("fra", "USA", "USA")
+            English = new Translation("USA", "USA"),
+            French = new Translation("USA", "USA")
         },
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(38, -97),
@@ -39,8 +39,8 @@ internal static class FakeFlag
         Code = "ita",
         Translations = new Translations()
         {
-            English = new Translation("eng", "Italy", "Italy"),
-            French = new Translation("fra", "Italy", "Italy")
+            English = new Translation("Italy", "Italy"),
+            French = new Translation("Italie", "Italie")
         },
         Continent = Continent.Europe,
         Coordinate = new GeographicCoordinate(42.8333, 12.8333),
@@ -57,8 +57,8 @@ internal static class FakeFlag
         Direction = Direction.Calculate(new GeographicCoordinate(0, 0), new GeographicCoordinate(0, 0)),
         Translations = new Translations()
         {
-            English = new Translation("eng", "Canada", "Canada"),
-            French = new Translation("fra", "Canada", "Canada")
+            English = new Translation("Canada", "Canada"),
+            French = new Translation("Canada", "Canada")
         }
     };
 }

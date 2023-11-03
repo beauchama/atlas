@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags;
 
-public class FlagDtoJsonContextTests
+public sealed class FlagDtoJsonContextTests
 {
     [Fact]
     public void FlagDtoJsonContextShouldHaveTrueForPropertyNameCaseInsensitive()

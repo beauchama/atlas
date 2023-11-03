@@ -8,7 +8,7 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags.Persistence;
 
-public class CacheFlagRepositoryTests
+public sealed class CacheFlagRepositoryTests
 {
     private readonly IMemoryCache _memoryCache = Substitute.For<IMemoryCache>();
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();

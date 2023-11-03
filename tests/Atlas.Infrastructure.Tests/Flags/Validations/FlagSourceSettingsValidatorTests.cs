@@ -7,7 +7,7 @@ using FluentValidation.TestHelper;
 
 namespace Atlas.Infrastructure.Flags.Validations;
 
-public class FlagSourceSettingsValidatorTests
+public sealed class FlagSourceSettingsValidatorTests
 {
     private readonly FlagSourceSettings _settings = new()
     {
@@ -15,25 +15,6 @@ public class FlagSourceSettingsValidatorTests
     };
 
     private readonly FlagSourceSettingsValidator _validator = new();
-
-    public static TheoryData<string> Schemes { get; } = new()
-    {
-        { Uri.UriSchemeFile },
-        { Uri.UriSchemeFtp },
-        { Uri.UriSchemeFtps },
-        { Uri.UriSchemeGopher },
-        { Uri.UriSchemeHttp },
-        { Uri.UriSchemeMailto },
-        { Uri.UriSchemeNetPipe },
-        { Uri.UriSchemeNetTcp },
-        { Uri.UriSchemeNews },
-        { Uri.UriSchemeNntp },
-        { Uri.UriSchemeSftp },
-        { Uri.UriSchemeSsh },
-        { Uri.UriSchemeTelnet },
-        { Uri.UriSchemeWs },
-        { Uri.UriSchemeWss },
-    };
 
     [Fact]
     public void ValidateShouldNotHaveErrorForCountryEndpointWhenAllRulesAreValid()
@@ -52,8 +33,7 @@ public class FlagSourceSettingsValidatorTests
             .WithErrorMessage("'Endpoint' must not be empty.");
     }
 
-    [Theory]
-    [MemberData(nameof(Schemes))]
+    [Theory, ClassData(typeof(Schemes))]
     public void ValidateShouldHaveErrorForCountryEndpointWhenIsSchemeIsNotHttps(string scheme)
     {
         TestValidationResult<FlagSourceSettings> result = _validator.TestValidate(_settings with
@@ -62,5 +42,27 @@ public class FlagSourceSettingsValidatorTests
         });
 
         result.ShouldHaveValidationErrorFor(x => x.Endpoint).WithErrorMessage("'Endpoint' must be https.");
+    }
+}
+
+file sealed class Schemes : TheoryData<string>
+{
+    public Schemes()
+    {
+        Add(Uri.UriSchemeFile);
+        Add(Uri.UriSchemeFtp);
+        Add(Uri.UriSchemeFtps);
+        Add(Uri.UriSchemeGopher);
+        Add(Uri.UriSchemeHttp);
+        Add(Uri.UriSchemeMailto);
+        Add(Uri.UriSchemeNetPipe);
+        Add(Uri.UriSchemeNetTcp);
+        Add(Uri.UriSchemeNews);
+        Add(Uri.UriSchemeNntp);
+        Add(Uri.UriSchemeSftp);
+        Add(Uri.UriSchemeSsh);
+        Add(Uri.UriSchemeTelnet);
+        Add(Uri.UriSchemeWs);
+        Add(Uri.UriSchemeWss);
     }
 }

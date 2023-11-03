@@ -1,7 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Web.Shared.Flags;
+using Atlas.Contracts.Flags;
 using FlagEntity = Atlas.Domain.Flags.Flag;
 using GuessedFlagEntity = Atlas.Domain.Flags.GuessedFlag;
 using TranslationsEntity = Atlas.Domain.Flags.Translations;
@@ -39,7 +39,7 @@ internal static class FlagsMapper
 
     private static Translations MapToShared(this TranslationsEntity entity) => new()
     {
-        French = new(entity.French.Code, entity.French.Name, entity.French.OfficialName),
-        English = new(entity.English.Code, entity.English.Name, entity.English.OfficialName),
+        French = new(entity.French.Name, entity.French.OfficialName),
+        English = new(entity.English.Name, entity.English.OfficialName),
     };
 }

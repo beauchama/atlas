@@ -9,7 +9,7 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Migration.App;
 
-public class AtlasApplicationTests
+public sealed class AtlasApplicationTests
 {
     private readonly IHostEnvironment _environment = Substitute.For<IHostEnvironment>();
     private readonly IDirectory _directory = Substitute.For<IDirectory>();
@@ -29,13 +29,7 @@ public class AtlasApplicationTests
         _atlas = new AtlasApplication(_environment, _directory, _applicationLifetime, logger, [_flagMigrator, _countryMigrator]);
     }
 
-    public static TheoryData<string, string> EnvironmentPaths { get; } = new()
-    {
-        { "../../../../", Environments.Development },
-        { "../../", Environments.Production },
-    };
-
-    [Theory, MemberData(nameof(EnvironmentPaths))]
+    [Theory, ClassData(typeof(EnvironmentPaths))]
     public async Task StartAsyncShouldSearchWwwRootWithTheGoodPathDependingOfTheEnvironment(string path, string environment)
     {
         const string rootPath = "a/b/c/d/e/f/g";
@@ -79,5 +73,14 @@ public class AtlasApplicationTests
         await _atlas.StartAsync(CancellationToken.None);
 
         _applicationLifetime.Received(Quantity.Exactly(1)).StopApplication();
+    }
+}
+
+file sealed class EnvironmentPaths : TheoryData<string, string>
+{
+    public EnvironmentPaths()
+    {
+        Add("../../../../", Environments.Development);
+        Add("../../", Environments.Production);
     }
 }

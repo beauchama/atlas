@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace Atlas.Migration.App.Flags.Converters;
 
-public class GeographicCoordinateDtoJsonConverterTests
+public sealed class GeographicCoordinateDtoJsonConverterTests
 {
     private readonly GeographicCoordinateDtoJsonConverter _converter = new();
 

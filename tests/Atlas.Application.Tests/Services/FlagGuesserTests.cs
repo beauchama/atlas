@@ -7,7 +7,7 @@ using Atlas.Domain.Geography;
 
 namespace Atlas.Application.Services;
 
-public class FlagGuesserTests
+public sealed class FlagGuesserTests
 {
     private readonly FlagGuesser _flagGuesser = new();
 

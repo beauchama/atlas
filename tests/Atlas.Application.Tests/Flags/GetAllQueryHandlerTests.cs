@@ -7,10 +7,11 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags;
 
-public class GetAllQueryHandlerTests
+public sealed class GetAllQueryHandlerTests
 {
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();
     private readonly IDispatcher _dispatcher = Substitute.For<IDispatcher>();
+
     private readonly GetAllQueryHandler _handler;
 
     public GetAllQueryHandlerTests() => _handler = new GetAllQueryHandler(_flagRepository);

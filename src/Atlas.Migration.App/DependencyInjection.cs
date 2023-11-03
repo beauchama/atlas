@@ -22,7 +22,7 @@ internal static class DependencyInjection
         {
             client.DefaultRequestVersion = HttpVersion.Version20;
             client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
-        });
+        }).RemoveAllLoggers();
 
         return services
             .AddTransient<IMigrator, FlagMigrator>()
@@ -42,7 +42,7 @@ internal static class DependencyInjection
     internal static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder)
     {
         return builder.ClearProviders()
-            .AddConsole();
+            .AddSimpleConsole(c => c.SingleLine = true);
     }
 
     private static IServiceCollection ConfigureJson<T>(this IServiceCollection services) where T : class
