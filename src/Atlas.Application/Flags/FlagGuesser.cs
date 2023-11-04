@@ -33,7 +33,7 @@ internal sealed class FlagGuesser : IFlagGuesser
         Translations = guessedFlag.Translations,
         IsSuccess = false,
         SameContinent = flagToGuess.Continent == guessedFlag.Continent,
-        Size = flagToGuess.Area > guessedFlag.Area ? AreaSize.Larger : AreaSize.Smaller,
+        Size = flagToGuess.Area.CompareTo(guessedFlag.Area),
         Direction = Direction.Calculate(guessedFlag.Coordinate, flagToGuess.Coordinate),
         Distance = Distance.Calculate(guessedFlag.Coordinate, flagToGuess.Coordinate)
     };

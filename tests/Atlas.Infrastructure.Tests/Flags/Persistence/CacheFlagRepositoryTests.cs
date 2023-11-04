@@ -23,7 +23,7 @@ public sealed class CacheFlagRepositoryTests
         },
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(60, -95),
-        Area = 9984670
+        Area = new Area(9984670)
     };
 
     private readonly CachedFlagRepository _repository;

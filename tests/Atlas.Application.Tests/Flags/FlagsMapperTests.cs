@@ -3,6 +3,7 @@
 
 using Atlas.Application.Fakes;
 using Atlas.Contracts.Flags;
+using Atlas.Contracts.Geography;
 
 namespace Atlas.Application.Flags;
 
@@ -45,7 +46,7 @@ public sealed class FlagsMapperTests
     }
 
     [Theory, ClassData(typeof(Area))]
-    public void GuessedFlagShouldReturnTheGoodAreaSize(AreaSize expectedSize, Domain.Flags.AreaSize size)
+    public void GuessedFlagShouldReturnTheGoodAreaSize(AreaSize expectedSize, Domain.Geography.AreaSize size)
     {
         GuessedFlag flag = (_guessedFlag with { Size = size }).AsGuessedFlagContract();
 
@@ -53,13 +54,13 @@ public sealed class FlagsMapperTests
     }
 }
 
-file sealed class Area : TheoryData<AreaSize, Domain.Flags.AreaSize>
+file sealed class Area : TheoryData<AreaSize, Domain.Geography.AreaSize>
 {
     public Area()
     {
-        Add(AreaSize.Larger, Domain.Flags.AreaSize.Larger);
-        Add(AreaSize.Same, Domain.Flags.AreaSize.Same);
-        Add(AreaSize.Smaller, Domain.Flags.AreaSize.Smaller);
-        Add(AreaSize.Same, (Domain.Flags.AreaSize)999);
+        Add(AreaSize.Larger, Domain.Geography.AreaSize.Larger);
+        Add(AreaSize.Same, Domain.Geography.AreaSize.Same);
+        Add(AreaSize.Smaller, Domain.Geography.AreaSize.Smaller);
+        Add(AreaSize.Same, (Domain.Geography.AreaSize)999);
     }
 }

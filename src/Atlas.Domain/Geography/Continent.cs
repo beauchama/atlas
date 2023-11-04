@@ -1,7 +1,7 @@
-﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
+// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-namespace Atlas.Domain.Flags;
+namespace Atlas.Domain.Geography;
 
 public enum Continent
 {

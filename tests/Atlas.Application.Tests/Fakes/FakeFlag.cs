@@ -18,7 +18,7 @@ internal static class FakeFlag
         },
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(60, -95),
-        Area = 9984670
+        Area = new Area(9984670)
     };
 
     internal static Flag UsaFlag { get; } = new()
@@ -31,7 +31,7 @@ internal static class FakeFlag
         },
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(38, -97),
-        Area = 9372610
+        Area = new Area(9372610)
     };
 
     internal static Flag ItalyFlag { get; } = new()
@@ -44,7 +44,7 @@ internal static class FakeFlag
         },
         Continent = Continent.Europe,
         Coordinate = new GeographicCoordinate(42.8333, 12.8333),
-        Area = 301336,
+        Area = new Area(301336)
     };
 
     internal static GuessedFlag GuessedCanadaFlag { get; } = new()

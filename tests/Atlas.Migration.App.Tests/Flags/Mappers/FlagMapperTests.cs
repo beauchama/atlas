@@ -2,6 +2,7 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Domain.Flags;
+using Atlas.Domain.Geography;
 using Atlas.Migration.App.Flags.Dto;
 
 namespace Atlas.Migration.App.Flags.Mappers;
@@ -31,7 +32,7 @@ public sealed class FlagMapperTests
         flag.Continent.Should().Be(Continent.America);
         flag.Coordinate.Latitude.Should().Be(_flag.Coordinate.Latitude);
         flag.Coordinate.Longitude.Should().Be(_flag.Coordinate.Longitude);
-        flag.Area.Should().Be(_flag.Area);
+        flag.Area.ToDouble().Should().Be(_flag.Area);
     }
 
     [Theory, ClassData(typeof(Continents))]

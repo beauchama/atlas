@@ -2,6 +2,7 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Contracts.Flags;
+using Atlas.Contracts.Geography;
 using FlagEntity = Atlas.Domain.Flags.Flag;
 using GuessedFlagEntity = Atlas.Domain.Flags.GuessedFlag;
 using TranslationsEntity = Atlas.Domain.Flags.Translations;
@@ -20,9 +21,9 @@ internal static class FlagsMapper
         IsSuccess = entity.IsSuccess,
         Size = entity.Size switch
         {
-            Domain.Flags.AreaSize.Larger => AreaSize.Larger,
-            Domain.Flags.AreaSize.Smaller => AreaSize.Smaller,
-            Domain.Flags.AreaSize.Same => AreaSize.Same,
+            Domain.Geography.AreaSize.Larger => AreaSize.Larger,
+            Domain.Geography.AreaSize.Smaller => AreaSize.Smaller,
+            Domain.Geography.AreaSize.Same => AreaSize.Same,
             _ => AreaSize.Same
         },
         Kilometers = entity.Distance.Kilometers,

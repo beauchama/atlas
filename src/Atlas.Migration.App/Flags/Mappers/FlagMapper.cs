@@ -30,6 +30,6 @@ internal static class FlagMapper
             _ => Continent.America
         },
         Coordinate = new GeographicCoordinate(flag.Coordinate.Latitude, flag.Coordinate.Longitude),
-        Area = flag.Area
+        Area = new Area(flag.Area)
     };
 }

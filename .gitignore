@@ -1,5 +1,6 @@
 # wwwroot
 *.css
+/src/*/wwwroot/_data
 
 # User-specific files
 *.rsuser

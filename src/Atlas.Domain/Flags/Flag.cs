@@ -15,5 +15,5 @@ public sealed record Flag
 
     public required GeographicCoordinate Coordinate { get; init; }
 
-    public required double Area { get; init; }
+    public required Area Area { get; init; }
 }
