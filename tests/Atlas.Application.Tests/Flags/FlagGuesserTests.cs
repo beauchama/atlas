@@ -5,7 +5,7 @@ using Atlas.Application.Fakes;
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
 
-namespace Atlas.Application.Services;
+namespace Atlas.Application.Flags;
 
 public sealed class FlagGuesserTests
 {

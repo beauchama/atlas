@@ -1,11 +1,11 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Application.Flags.Persistence;
+using Atlas.Application.Flags.Abstractions;
 using Fluxor;
 using NSubstitute.ReceivedExtensions;
 
-namespace Atlas.Application.Flags;
+namespace Atlas.Application.Flags.Handlers;
 
 public sealed class GetAllQueryHandlerTests
 {
@@ -21,7 +21,7 @@ public sealed class GetAllQueryHandlerTests
     {
         await _handler.HandleAsync(_dispatcher);
 
-        await _flagRepository.Received(Quantity.Exactly(1)).GetAllAsync();
+        await _flagRepository.Received(Quantity.Exactly(1)).GetAllAsync(CancellationToken.None);
     }
 
     [Fact]

@@ -1,10 +1,11 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
+using Atlas.Application.Flags.Abstractions;
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
 
-namespace Atlas.Application.Services;
+namespace Atlas.Application.Flags;
 
 internal sealed class FlagGuesser : IFlagGuesser
 {

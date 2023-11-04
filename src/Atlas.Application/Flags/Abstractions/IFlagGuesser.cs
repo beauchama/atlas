@@ -3,7 +3,7 @@
 
 using Atlas.Domain.Flags;
 
-namespace Atlas.Application.Services;
+namespace Atlas.Application.Flags.Abstractions;
 
 internal interface IFlagGuesser
 {

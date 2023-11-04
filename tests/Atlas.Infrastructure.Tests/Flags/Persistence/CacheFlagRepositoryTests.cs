@@ -1,17 +1,30 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Application.Fakes;
+using Atlas.Application.Flags.Abstractions;
 using Atlas.Domain.Flags;
+using Atlas.Domain.Geography;
 using Microsoft.Extensions.Caching.Memory;
 using NSubstitute.ReceivedExtensions;
 
-namespace Atlas.Application.Flags.Persistence;
+namespace Atlas.Infrastructure.Flags.Persistence;
 
 public sealed class CacheFlagRepositoryTests
 {
     private readonly IMemoryCache _memoryCache = Substitute.For<IMemoryCache>();
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();
+    private readonly Flag _canadaFlag = new()
+    {
+        Code = "can",
+        Translations = new Translations()
+        {
+            English = new Translation("Canada", "Canada"),
+            French = new Translation("Canada", "Canada")
+        },
+        Continent = Continent.America,
+        Coordinate = new GeographicCoordinate(60, -95),
+        Area = 9984670
+    };
 
     private readonly CachedFlagRepository _repository;
 
@@ -40,7 +53,7 @@ public sealed class CacheFlagRepositoryTests
     [Fact]
     public async Task GetAllAsyncShouldReturnAllFlagsFromRepositoryWhenDataIsNotCached()
     {
-        IEnumerable<Flag> expectedFlags = [FakeFlag.CanadaFlag];
+        IEnumerable<Flag> expectedFlags = [_canadaFlag];
 
         _flagRepository.GetAllAsync().Returns(expectedFlags);
         _memoryCache.TryGetValue(Arg.Any<string>(), out _).Returns(returnThis: false);
@@ -53,7 +66,7 @@ public sealed class CacheFlagRepositoryTests
     [Fact]
     public async Task GetAllAsyncShouldUseMemoryCacheWhenDataIsCached()
     {
-        object? flags = new Flag[] { FakeFlag.CanadaFlag };
+        object? flags = new Flag[] { _canadaFlag };
 
         _memoryCache.TryGetValue(Arg.Any<string>(), out Arg.Any<object?>()).Returns(x =>
         {
@@ -70,7 +83,7 @@ public sealed class CacheFlagRepositoryTests
     [Fact]
     public async Task GetAllAsyncShouldReturnAllFlagsFromMemoryCacheWhenDataIsCached()
     {
-        IEnumerable<Flag> cachedFlags = new Flag[] { FakeFlag.CanadaFlag };
+        IEnumerable<Flag> cachedFlags = new Flag[] { _canadaFlag };
 
         _memoryCache.TryGetValue(Arg.Any<string>(), out Arg.Any<object?>()).Returns(x =>
         {
@@ -86,60 +99,60 @@ public sealed class CacheFlagRepositoryTests
     [Fact]
     public async Task GetAsyncShouldUseRepositoryWhenDataIsNotCached()
     {
-        _memoryCache.TryGetValue(FakeFlag.CanadaFlag.Code, out _).Returns(returnThis: false);
+        _memoryCache.TryGetValue(_canadaFlag.Code, out _).Returns(returnThis: false);
 
-        _ = await _repository.GetAsync(FakeFlag.CanadaFlag.Code);
+        _ = await _repository.GetAsync(_canadaFlag.Code);
 
-        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(FakeFlag.CanadaFlag.Code);
+        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_canadaFlag.Code);
     }
 
     [Fact]
     public async Task GetASyncShouldCreateAnEntryIntoTheCacheWhenDataIsNotCached()
     {
-        _memoryCache.TryGetValue(FakeFlag.CanadaFlag.Code, out _).Returns(returnThis: false);
+        _memoryCache.TryGetValue(_canadaFlag.Code, out _).Returns(returnThis: false);
 
-        _ = await _repository.GetAsync(FakeFlag.CanadaFlag.Code);
+        _ = await _repository.GetAsync(_canadaFlag.Code);
 
-        _memoryCache.Received(Quantity.Exactly(1)).CreateEntry(FakeFlag.CanadaFlag.Code);
+        _memoryCache.Received(Quantity.Exactly(1)).CreateEntry(_canadaFlag.Code);
     }
 
     [Fact]
     public async Task GetAsyncShouldReturnTheFlagFromRepositoryWhenDataIsNotCached()
     {
-        _flagRepository.GetAsync(FakeFlag.CanadaFlag.Code).Returns(FakeFlag.CanadaFlag);
-        _memoryCache.TryGetValue(FakeFlag.CanadaFlag.Code, out _).Returns(returnThis: false);
+        _flagRepository.GetAsync(_canadaFlag.Code).Returns(_canadaFlag);
+        _memoryCache.TryGetValue(_canadaFlag.Code, out _).Returns(returnThis: false);
 
-        Flag flag = await _repository.GetAsync(FakeFlag.CanadaFlag.Code);
+        Flag flag = await _repository.GetAsync(_canadaFlag.Code);
 
-        flag.Should().Be(FakeFlag.CanadaFlag);
+        flag.Should().Be(_canadaFlag);
     }
 
     [Fact]
     public async Task GetAsyncShouldUseMemoryCacheWhenDataIsCached()
     {
-        _memoryCache.TryGetValue(FakeFlag.CanadaFlag.Code, out Arg.Any<object?>()).Returns(x =>
+        _memoryCache.TryGetValue(_canadaFlag.Code, out Arg.Any<object?>()).Returns(x =>
         {
-            x[1] = FakeFlag.CanadaFlag;
+            x[1] = _canadaFlag;
             return true;
         });
 
-        _ = await _repository.GetAsync(FakeFlag.CanadaFlag.Code);
+        _ = await _repository.GetAsync(_canadaFlag.Code);
 
-        await _flagRepository.Received(Quantity.None()).GetAsync(FakeFlag.CanadaFlag.Code);
-        _memoryCache.Received(Quantity.None()).CreateEntry(FakeFlag.CanadaFlag.Code);
+        await _flagRepository.Received(Quantity.None()).GetAsync(_canadaFlag.Code);
+        _memoryCache.Received(Quantity.None()).CreateEntry(_canadaFlag.Code);
     }
 
     [Fact]
     public async Task GetAsyncShouldReturnTheFlagFromMemoryCacheWhenDataIsCached()
     {
-        _memoryCache.TryGetValue(FakeFlag.CanadaFlag.Code, out Arg.Any<object?>()).Returns(x =>
+        _memoryCache.TryGetValue(_canadaFlag.Code, out Arg.Any<object?>()).Returns(x =>
         {
-            x[1] = FakeFlag.CanadaFlag;
+            x[1] = _canadaFlag;
             return true;
         });
 
-        Flag flag = await _repository.GetAsync(FakeFlag.CanadaFlag.Code);
+        Flag flag = await _repository.GetAsync(_canadaFlag.Code);
 
-        flag.Should().BeEquivalentTo(FakeFlag.CanadaFlag);
+        flag.Should().BeEquivalentTo(_canadaFlag);
     }
 }

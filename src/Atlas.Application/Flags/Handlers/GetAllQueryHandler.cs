@@ -1,11 +1,11 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Application.Flags.Persistence;
+using Atlas.Application.Flags.Abstractions;
 using Atlas.Domain.Flags;
 using Fluxor;
 
-namespace Atlas.Application.Flags;
+namespace Atlas.Application.Flags.Handlers;
 
 internal sealed class GetAllQueryHandler(IFlagRepository flagRepository)
 {

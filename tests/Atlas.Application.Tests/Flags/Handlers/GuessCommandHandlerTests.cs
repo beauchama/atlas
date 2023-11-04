@@ -2,12 +2,11 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Fakes;
-using Atlas.Application.Flags.Persistence;
-using Atlas.Application.Services;
+using Atlas.Application.Flags.Abstractions;
 using Fluxor;
 using NSubstitute.ReceivedExtensions;
 
-namespace Atlas.Application.Flags;
+namespace Atlas.Application.Flags.Handlers;
 
 public sealed class GuessCommandHandlerTests
 {
@@ -33,7 +32,7 @@ public sealed class GuessCommandHandlerTests
     {
         await _handler.HandleAsync(_request, _dispatcher);
 
-        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.FlagCode);
+        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.FlagCode, CancellationToken.None);
     }
 
     [Fact]
@@ -41,7 +40,7 @@ public sealed class GuessCommandHandlerTests
     {
         await _handler.HandleAsync(_request, _dispatcher);
 
-        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.GuessedFlagCode);
+        await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.GuessedFlagCode, CancellationToken.None);
     }
 
     [Fact]

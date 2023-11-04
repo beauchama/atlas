@@ -4,11 +4,15 @@
     <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.1.1" />
     <PackageVersion Include="FluentValidation" Version="11.8.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0-rc.2.23479.6" />
-    <PackageVersion Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
   <ItemGroup Label="Application packages">
     <PackageVersion Include="Fluxor" Version="5.9.1" />
+    <PackageVersion Include="Mediatr" Version="12.1.1" />
+  </ItemGroup>
+  <ItemGroup Label="Infrastructure packages">
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0-rc.2.23479.6" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-rc.2.23479.6" />
+    <PackageVersion Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
   <ItemGroup Label="Migration packages">
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.2.23479.6" />
