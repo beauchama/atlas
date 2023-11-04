@@ -14,7 +14,7 @@ public sealed class FlagsMapperTests
     [Fact]
     public void FlagMapToSharedShouldMapEntityToShared()
     {
-        IEnumerable<Flag> flags = new[] { _flag }.MapToShared();
+        IEnumerable<Flag> flags = new[] { _flag }.AsFlagContracts();
 
         flags.Should().ContainSingle();
         Flag flag = flags.First();
@@ -29,7 +29,7 @@ public sealed class FlagsMapperTests
     [Fact]
     public void GuessedFlagMapToSharedShouldMapEntityToShared()
     {
-        GuessedFlag flag = _guessedFlag.MapToShared();
+        GuessedFlag flag = _guessedFlag.AsGuessedFlagContract();
 
         flag.Code.Should().Be(_guessedFlag.Code);
         flag.Translations.English.Name.Should().Be(_guessedFlag.Translations.English.Name);
@@ -47,7 +47,7 @@ public sealed class FlagsMapperTests
     [Theory, ClassData(typeof(Area))]
     public void GuessedFlagShouldReturnTheGoodAreaSize(AreaSize expectedSize, Domain.Flags.AreaSize size)
     {
-        GuessedFlag flag = (_guessedFlag with { Size = size }).MapToShared();
+        GuessedFlag flag = (_guessedFlag with { Size = size }).AsGuessedFlagContract();
 
         flag.Size.Should().Be(expectedSize);
     }

@@ -4,19 +4,16 @@
 using Atlas.Application.Flags.Abstractions;
 using Atlas.Application.Utilities;
 using Atlas.Domain.Flags;
-using Fluxor;
+using MediatR;
 
 namespace Atlas.Application.Flags.Handlers;
 
-internal sealed class RandomizeQueryHandler(IFlagRepository flagRepository, IRandomizer randomizer)
+internal sealed class RandomizeQueryHandler(IFlagRepository flagRepository, IRandomizer randomizer) : IRequestHandler<FlagRequests.Randomize, string>
 {
-    [EffectMethod(typeof(FlagActions.RandomizeRequest))]
-    public async Task HandleAsync(IDispatcher dispatcher)
+    public async Task<string> Handle(FlagRequests.Randomize request, CancellationToken cancellationToken)
     {
-        IEnumerable<Flag> flags = await flagRepository.GetAllAsync().ConfigureAwait(false);
+        IEnumerable<Flag> flags = await flagRepository.GetAllAsync(cancellationToken).ConfigureAwait(false);
 
-        Flag randomizedFlag = randomizer.Randomize(flags);
-
-        dispatcher.Dispatch(new FlagActions.RandomizeResponse(randomizedFlag.Code));
+        return randomizer.Randomize(flags).Code;
     }
 }

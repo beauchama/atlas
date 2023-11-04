@@ -3,18 +3,17 @@
 
 using Atlas.Application.Fakes;
 using Atlas.Application.Flags.Abstractions;
-using Fluxor;
+using Atlas.Contracts.Flags;
 using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags.Handlers;
 
 public sealed class GuessCommandHandlerTests
 {
-    private readonly FlagActions.GuessRequest _request = new("can", "ita");
+    private readonly FlagRequests.Guess _request = new("can", "ita");
 
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();
     private readonly IFlagGuesser _flagGuesser = Substitute.For<IFlagGuesser>();
-    private readonly IDispatcher _dispatcher = Substitute.For<IDispatcher>();
 
     private readonly GuessCommandHandler _handler;
 
@@ -30,7 +29,7 @@ public sealed class GuessCommandHandlerTests
     [Fact]
     public async Task HandleShouldGetTheFlagToGuess()
     {
-        await _handler.HandleAsync(_request, _dispatcher);
+        await _handler.Handle(_request, CancellationToken.None);
 
         await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.FlagCode, CancellationToken.None);
     }
@@ -38,17 +37,16 @@ public sealed class GuessCommandHandlerTests
     [Fact]
     public async Task HandleShouldGetTheGuessedFlag()
     {
-        await _handler.HandleAsync(_request, _dispatcher);
+        await _handler.Handle(_request, CancellationToken.None);
 
         await _flagRepository.Received(Quantity.Exactly(1)).GetAsync(_request.GuessedFlagCode, CancellationToken.None);
     }
 
     [Fact]
-    public async Task HandleShouldDispatchTheGuessedFlag()
+    public async Task HandleShouldReturnTheGuessedFlag()
     {
-        await _handler.HandleAsync(_request, _dispatcher);
+        GuessedFlag guessedFlag = await _handler.Handle(_request, CancellationToken.None);
 
-        _dispatcher.Received(Quantity.Exactly(1))
-            .Dispatch(Arg.Is<FlagActions.GuessResponse>(f => f.GuessedFlag.Code == FakeFlag.GuessedCanadaFlag.Code));
+        guessedFlag.Code.Should().Be(FakeFlag.GuessedCanadaFlag.Code);
     }
 }

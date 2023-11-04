@@ -2,18 +2,17 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Flags.Abstractions;
-using Atlas.Domain.Flags;
-using Fluxor;
+using Atlas.Contracts.Flags;
+using MediatR;
 
 namespace Atlas.Application.Flags.Handlers;
 
-internal sealed class GetAllQueryHandler(IFlagRepository flagRepository)
+internal sealed class GetAllQueryHandler(IFlagRepository flagRepository) : IRequestHandler<FlagRequests.GetAll, IEnumerable<Flag>>
 {
-    [EffectMethod(typeof(FlagActions.GetAllRequest))]
-    public async Task HandleAsync(IDispatcher dispatcher)
+    public async Task<IEnumerable<Flag>> Handle(FlagRequests.GetAll request, CancellationToken cancellationToken)
     {
-        IEnumerable<Flag> flags = await flagRepository.GetAllAsync().ConfigureAwait(false);
+        IEnumerable<Domain.Flags.Flag> flags = await flagRepository.GetAllAsync(cancellationToken).ConfigureAwait(false);
 
-        dispatcher.Dispatch(new FlagActions.GetAllResponse(flags.MapToShared()));
+        return flags.AsFlagContracts();
     }
 }

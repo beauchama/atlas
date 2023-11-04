@@ -5,7 +5,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluxor" />
     <PackageReference Include="Mediatr" />
   </ItemGroup>
 </Project>

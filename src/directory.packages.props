@@ -6,7 +6,6 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
   <ItemGroup Label="Application packages">
-    <PackageVersion Include="Fluxor" Version="5.9.1" />
     <PackageVersion Include="Mediatr" Version="12.1.1" />
   </ItemGroup>
   <ItemGroup Label="Infrastructure packages">

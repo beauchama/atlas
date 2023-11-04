@@ -10,10 +10,10 @@ namespace Atlas.Application.Flags;
 
 internal static class FlagsMapper
 {
-    internal static IEnumerable<Flag> MapToShared(this IEnumerable<FlagEntity> entities)
+    internal static IEnumerable<Flag> AsFlagContracts(this IEnumerable<FlagEntity> entities)
         => entities.Select(MapToShared).ToArray();
 
-    internal static GuessedFlag MapToShared(this GuessedFlagEntity entity) => new()
+    internal static GuessedFlag AsGuessedFlagContract(this GuessedFlagEntity entity) => new()
     {
         Code = entity.Code,
         Translations = entity.Translations.MapToShared(),

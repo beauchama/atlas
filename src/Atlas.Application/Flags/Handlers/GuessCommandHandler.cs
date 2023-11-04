@@ -2,21 +2,20 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Flags.Abstractions;
-using Atlas.Domain.Flags;
-using Fluxor;
+using Atlas.Contracts.Flags;
+using MediatR;
 
 namespace Atlas.Application.Flags.Handlers;
 
-internal sealed class GuessCommandHandler(IFlagRepository flagRepository, IFlagGuesser flagGuesser)
+internal sealed class GuessCommandHandler(IFlagRepository flagRepository, IFlagGuesser flagGuesser) : IRequestHandler<FlagRequests.Guess, GuessedFlag>
 {
-    [EffectMethod]
-    public async Task HandleAsync(FlagActions.GuessRequest request, IDispatcher dispatcher)
+    public async Task<GuessedFlag> Handle(FlagRequests.Guess request, CancellationToken cancellationToken)
     {
-        Flag flagToGuess = await flagRepository.GetAsync(request.FlagCode).ConfigureAwait(false);
-        Flag guessedFlag = await flagRepository.GetAsync(request.GuessedFlagCode).ConfigureAwait(false);
+        Domain.Flags.Flag flagToGuess = await flagRepository.GetAsync(request.FlagCode, cancellationToken).ConfigureAwait(false);
+        Domain.Flags.Flag guessedFlag = await flagRepository.GetAsync(request.GuessedFlagCode, cancellationToken).ConfigureAwait(false);
 
-        GuessedFlag flag = flagGuesser.Guess(flagToGuess, guessedFlag);
+        Domain.Flags.GuessedFlag flag = flagGuesser.Guess(flagToGuess, guessedFlag);
 
-        dispatcher.Dispatch(new FlagActions.GuessResponse(flag.MapToShared()));
+        return flag.AsGuessedFlagContract();
     }
 }

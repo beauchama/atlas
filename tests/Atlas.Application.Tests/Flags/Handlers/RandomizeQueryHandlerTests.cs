@@ -5,7 +5,6 @@ using Atlas.Application.Fakes;
 using Atlas.Application.Flags.Abstractions;
 using Atlas.Application.Utilities;
 using Atlas.Domain.Flags;
-using Fluxor;
 using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Application.Flags.Handlers;
@@ -14,7 +13,6 @@ public sealed class RandomizeQueryHandlerTests
 {
     private readonly IFlagRepository _flagRepository = Substitute.For<IFlagRepository>();
     private readonly IRandomizer _randomizer = Substitute.For<IRandomizer>();
-    private readonly IDispatcher _dispatcher = Substitute.For<IDispatcher>();
 
     private readonly RandomizeQueryHandler _handler;
 
@@ -28,19 +26,19 @@ public sealed class RandomizeQueryHandlerTests
     [Fact]
     public async Task HandleShouldRetrieveAllFlags()
     {
-        await _handler.HandleAsync(_dispatcher);
+        await _handler.Handle(new FlagRequests.Randomize(), CancellationToken.None);
 
         await _flagRepository.Received(Quantity.Exactly(1)).GetAllAsync(CancellationToken.None);
     }
 
     [Fact]
-    public async Task HandleShouldRandomizeTheSource()
+    public async Task HandleShouldRandomizeAllFlags()
     {
         Flag[] flags = [];
 
-        _flagRepository.GetAllAsync().Returns(flags);
+        _flagRepository.GetAllAsync(CancellationToken.None).Returns(flags);
 
-        await _handler.HandleAsync(_dispatcher);
+        await _handler.Handle(new FlagRequests.Randomize(), CancellationToken.None);
 
         _randomizer.Received(Quantity.Exactly(1)).Randomize(flags);
     }
@@ -51,11 +49,11 @@ public sealed class RandomizeQueryHandlerTests
         Flag flag = FakeFlag.ItalyFlag;
         Flag[] flags = [flag];
 
-        _flagRepository.GetAllAsync().Returns(flags);
+        _flagRepository.GetAllAsync(CancellationToken.None).Returns(flags);
         _randomizer.Randomize(flags).Returns(flag);
 
-        await _handler.HandleAsync(_dispatcher);
+        string code = await _handler.Handle(new FlagRequests.Randomize(), CancellationToken.None);
 
-        _dispatcher.Received(Quantity.Exactly(1)).Dispatch(Arg.Is<FlagActions.RandomizeResponse>(f => f.Code == flag.Code));
+        code.Should().Be(flag.Code);
     }
 }
