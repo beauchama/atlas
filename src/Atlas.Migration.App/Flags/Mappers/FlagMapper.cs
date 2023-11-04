@@ -4,6 +4,7 @@
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
 using Atlas.Migration.App.Flags.Dto;
+using Atlas.Migration.App.Geography.Mappers;
 
 namespace Atlas.Migration.App.Flags.Mappers;
 
@@ -29,7 +30,7 @@ internal static class FlagMapper
             "Antarctic" => Continent.Antarctic,
             _ => Continent.America
         },
-        Coordinate = new GeographicCoordinate(flag.Coordinate.Latitude, flag.Coordinate.Longitude),
+        Coordinate = flag.Coordinate.AsDomain(),
         Area = new Area(flag.Area)
     };
 }

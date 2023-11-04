@@ -4,6 +4,7 @@
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
 using Atlas.Migration.App.Flags.Dto;
+using Atlas.Migration.App.Geography.Dto;
 
 namespace Atlas.Migration.App.Flags.Mappers;
 

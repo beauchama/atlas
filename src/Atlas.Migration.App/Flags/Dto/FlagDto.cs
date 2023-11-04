@@ -1,7 +1,8 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Migration.App.Flags.Converters;
+using Atlas.Migration.App.Geography.Converters;
+using Atlas.Migration.App.Geography.Dto;
 using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags.Dto;

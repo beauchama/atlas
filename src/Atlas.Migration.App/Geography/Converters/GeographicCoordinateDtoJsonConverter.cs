@@ -1,11 +1,11 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Migration.App.Flags.Dto;
+using Atlas.Migration.App.Geography.Dto;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Atlas.Migration.App.Flags.Converters;
+namespace Atlas.Migration.App.Geography.Converters;
 
 internal sealed class GeographicCoordinateDtoJsonConverter : JsonConverter<GeographicCoordinateDto>
 {

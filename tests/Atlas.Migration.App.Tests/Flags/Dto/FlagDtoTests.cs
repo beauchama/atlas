@@ -4,7 +4,7 @@
 using Atlas.Migration.App.Extensions;
 using Atlas.Migration.App.Fakes;
 using Atlas.Migration.App.Fixtures;
-using Atlas.Migration.App.Flags.Converters;
+using Atlas.Migration.App.Geography.Converters;
 using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags.Dto;
