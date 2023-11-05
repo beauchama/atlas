@@ -14,9 +14,7 @@ internal sealed class CachedFlagRepository(IFlagRepository flagRepository, IMemo
     public async Task<IEnumerable<Flag>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         if (memoryCache.TryGetValue(FlagsKey, out IEnumerable<Flag>? cachedFlags))
-        {
             return cachedFlags!;
-        }
 
         IEnumerable<Flag> flags = await flagRepository.GetAllAsync(cancellationToken).ConfigureAwait(false);
 
@@ -26,9 +24,7 @@ internal sealed class CachedFlagRepository(IFlagRepository flagRepository, IMemo
     public async Task<Flag> GetAsync(string code, CancellationToken cancellationToken = default)
     {
         if (memoryCache.TryGetValue(code, out Flag? cachedFlag))
-        {
             return cachedFlag!;
-        }
 
         Flag flag = await flagRepository.GetAsync(code, cancellationToken).ConfigureAwait(false);
 

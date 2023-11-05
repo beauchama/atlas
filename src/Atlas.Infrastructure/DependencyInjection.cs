@@ -3,7 +3,6 @@
 
 using Atlas.Application.Flags.Abstractions;
 using Atlas.Infrastructure.Flags.Persistence;
-using Atlas.Infrastructure.Flags.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
@@ -14,12 +13,13 @@ namespace Atlas.Infrastructure;
 [ExcludeFromCodeCoverage]
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IHostEnvironment environment)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string baseAddress, IHostEnvironment environment)
     {
         IHttpClientBuilder builder = services.AddHttpClient<IFlagRepository, FlagRepository>(client =>
         {
             client.DefaultRequestVersion = HttpVersion.Version20;
             client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+            client.BaseAddress = new Uri(baseAddress);
         });
 
         if (!environment.IsDevelopment())
@@ -27,7 +27,6 @@ public static class DependencyInjection
 
         return services
             .AddMemoryCache()
-            .Decorate<IFlagRepository, CachedFlagRepository>()
-            .ConfigureFlagSourceSettings();
+            .Decorate<IFlagRepository, CachedFlagRepository>();
     }
 }

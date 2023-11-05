@@ -34,3 +34,8 @@ dotnet_diagnostic.CA1852.severity = none
 # Is a duplicate of MA0004: https://github.com/meziantou/Meziantou.Analyzer/blob/main/docs/Rules/MA0004.md
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2007
 dotnet_diagnostic.CA2007.severity = none
+
+# CA2234: Use Uri in HttpClient.GetAsync
+# Sometimes we need to use string because base address was configured in dependency injection
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2234
+dotnet_diagnostic.CA2234.severity = none

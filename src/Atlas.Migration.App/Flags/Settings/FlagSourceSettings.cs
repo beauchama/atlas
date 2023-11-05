@@ -1,7 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-namespace Atlas.Infrastructure.Flags.Settings;
+namespace Atlas.Migration.App.Flags.Settings;
 
 public sealed record FlagSourceSettings
 {

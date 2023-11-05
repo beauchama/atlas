@@ -2,8 +2,10 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Domain.Flags;
-using Atlas.Infrastructure.Flags.Settings;
+using Atlas.Infrastructure.Settings.Validations;
 using Atlas.Migration.App.Flags;
+using Atlas.Migration.App.Flags.Settings;
+using Atlas.Migration.App.Flags.Settings.Validations;
 using Atlas.Migration.App.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +32,7 @@ internal static class DependencyInjection
         return services
             .AddTransient<IMigrator, FlagMigrator>()
             .ConfigureJson<IEnumerable<Flag>>()
-            .ConfigureFlagSourceSettings();
+            .AddFluentOptions<FlagSourceSettings, FlagSourceSettingsValidator>(FlagSourceSettings.Section);
     }
 
     internal static IServiceCollection AddApp(this IServiceCollection services)

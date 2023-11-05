@@ -4,7 +4,7 @@
 using Atlas.Infrastructure.Settings.Validations;
 using FluentValidation;
 
-namespace Atlas.Infrastructure.Flags.Settings.Validations;
+namespace Atlas.Migration.App.Flags.Settings.Validations;
 
 internal sealed class FlagSourceSettingsValidator : AbstractValidator<FlagSourceSettings>
 {

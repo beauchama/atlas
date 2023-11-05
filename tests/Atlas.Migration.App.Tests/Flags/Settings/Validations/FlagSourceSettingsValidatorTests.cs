@@ -1,11 +1,9 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Infrastructure.Flags.Settings;
-using Atlas.Infrastructure.Flags.Settings.Validations;
 using FluentValidation.TestHelper;
 
-namespace Atlas.Infrastructure.Flags.Validations;
+namespace Atlas.Migration.App.Flags.Settings.Validations;
 
 public sealed class FlagSourceSettingsValidatorTests
 {

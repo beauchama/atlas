@@ -1,10 +1,10 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Infrastructure.Flags.Settings;
 using Atlas.Migration.App.Fakes;
 using Atlas.Migration.App.Fixtures;
 using Atlas.Migration.App.Flags.Dto;
+using Atlas.Migration.App.Flags.Settings;
 using Microsoft.Extensions.Options;
 using MockHttp;
 using System.Net;
