@@ -14,6 +14,7 @@ public sealed class AtlasApplicationTests
     private readonly IHostEnvironment _environment = Substitute.For<IHostEnvironment>();
     private readonly IDirectory _directory = Substitute.For<IDirectory>();
     private readonly IHostApplicationLifetime _applicationLifetime = Substitute.For<IHostApplicationLifetime>();
+    private readonly IStopwatch _stopwatch = Substitute.For<IStopwatch>();
     private readonly IMigrator _flagMigrator = Substitute.For<IMigrator>();
     private readonly IMigrator _countryMigrator = Substitute.For<IMigrator>();
 
@@ -26,7 +27,7 @@ public sealed class AtlasApplicationTests
         _flagMigrator.Filename.Returns("flags.json");
         _countryMigrator.Filename.Returns("countries.json");
 
-        _atlas = new AtlasApplication(_environment, _directory, _applicationLifetime, logger, [_flagMigrator, _countryMigrator]);
+        _atlas = new AtlasApplication(_environment, _directory, _applicationLifetime, _stopwatch, logger, [_flagMigrator, _countryMigrator]);
     }
 
     [Theory, ClassData(typeof(EnvironmentPaths))]

@@ -39,7 +39,8 @@ internal static class DependencyInjection
             .AddHostedService<AtlasApplication>()
             .Configure<ConsoleLifetimeOptions>(options => options.SuppressStatusMessages = true)
             .AddTransient<IFile, Utilities.File>()
-            .AddTransient<IDirectory, Utilities.Directory>();
+            .AddTransient<IDirectory, Utilities.Directory>()
+            .AddTransient<IStopwatch, Stopwatch>();
     }
 
     internal static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder)

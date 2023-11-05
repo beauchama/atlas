@@ -13,6 +13,7 @@ internal sealed class AtlasApplication(
     IHostEnvironment environment,
     IDirectory directory,
     IHostApplicationLifetime applicationLifetime,
+    IStopwatch stopwatch,
     ILogger<AtlasApplication> logger,
     IEnumerable<IMigrator> migrators)
     : IHostedService
@@ -29,10 +30,14 @@ internal sealed class AtlasApplication(
             string dataName = Path.GetFileNameWithoutExtension(migrator.Filename);
 
             logger.MigratingData(dataName);
+            stopwatch.Start();
 
             await migrator.MigrateAsync(Path.Combine(dataPath, migrator.Filename), cancellationToken).ConfigureAwait(false);
 
-            logger.DataMigrationCompleted(dataName);
+            stopwatch.Stop();
+            logger.DataMigrationCompleted(dataName, stopwatch.ElapsedMilliseconds);
+
+            stopwatch.Reset();
         }
 
         logger.MigrationCompleted();
