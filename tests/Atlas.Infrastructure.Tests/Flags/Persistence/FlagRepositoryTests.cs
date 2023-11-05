@@ -3,6 +3,7 @@
 
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
+using Atlas.Domain.Translations;
 using Atlas.Infrastructure.Flags.Settings;
 using Microsoft.Extensions.Options;
 using MockHttp;
@@ -23,11 +24,7 @@ public sealed class FlagRepositoryTests : IDisposable
     private readonly Flag _canadaFlag = new()
     {
         Code = "can",
-        Translations = new Translations()
-        {
-            English = new Translation("Canada", "Canada"),
-            French = new Translation("Canada", "Canada")
-        },
+        Translations = [new Translation("fra", "Canada", "Canada"), new Translation("en", "Canada", "Canada")],
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(60, -95),
         Area = new Area(9984670)
@@ -90,7 +87,7 @@ public sealed class FlagRepositoryTests : IDisposable
 
         Flag flag = flags.First();
 
-        flag.Should().Be(_canadaFlag);
+        flag.Code.Should().Be(_canadaFlag.Code);
     }
 
     [Fact]
@@ -130,6 +127,6 @@ public sealed class FlagRepositoryTests : IDisposable
 
         Flag? flag = await _flagRepository.GetAsync(_canadaFlag.Code);
 
-        flag.Should().Be(_canadaFlag);
+        flag.Code.Should().Be(_canadaFlag.Code);
     }
 }

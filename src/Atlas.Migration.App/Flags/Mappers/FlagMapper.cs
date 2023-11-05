@@ -5,32 +5,23 @@ using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
 using Atlas.Migration.App.Flags.Dto;
 using Atlas.Migration.App.Geography.Mappers;
+using Atlas.Migration.App.Translations.Mappers;
 
 namespace Atlas.Migration.App.Flags.Mappers;
 
 internal static class FlagMapper
 {
-    internal static IEnumerable<Flag> MapToDomain(this IEnumerable<FlagDto> flags) => flags.Select(MapToDomain);
-
-    private static Flag MapToDomain(this FlagDto flag) => new()
+    internal static IEnumerable<Flag> AsDomain(this IEnumerable<FlagDto> flags)
     {
-        Code = flag.Code,
-        Translations = new Translations()
+        return flags.Select(AsDomain).ToArray();
+
+        static Flag AsDomain(FlagDto flag) => new()
         {
-            English = new Translation(flag.Name.Common, flag.Name.Official),
-            French = new Translation(flag.Translations.French.Common, flag.Translations.French.Official)
-        },
-        Continent = flag.Region switch
-        {
-            "Americas" => Continent.America,
-            "Europe" => Continent.Europe,
-            "Asia" => Continent.Asia,
-            "Africa" => Continent.Africa,
-            "Oceania" => Continent.Oceania,
-            "Antarctic" => Continent.Antarctic,
-            _ => Continent.America
-        },
-        Coordinate = flag.Coordinate.AsDomain(),
-        Area = new Area(flag.Area)
-    };
+            Code = flag.Code,
+            Translations = flag.Translations.AsDomain(flag.Name),
+            Continent = flag.Region.AsDomain(),
+            Coordinate = flag.Coordinate.AsDomain(),
+            Area = new Area(flag.Area)
+        };
+    }
 }

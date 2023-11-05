@@ -85,7 +85,7 @@ public sealed class FlagRetrieverTests : IClassFixture<SampleDeserializer>, IDis
 
         flag.Code.Should().Be(italy.Code);
         flag.Name.Should().Be(italy.Name);
-        flag.Translations.Should().Be(italy.Translations);
+        flag.Translations.Should().BeEquivalentTo(italy.Translations);
         flag.Region.Should().Be(italy.Region);
         flag.Coordinate.Should().Be(italy.Coordinate);
         flag.Area.Should().Be(italy.Area);

@@ -16,13 +16,16 @@ namespace Atlas.Migration.App;
 [ExcludeFromCodeCoverage]
 internal static class DependencyInjection
 {
-    internal static IServiceCollection AddFlagsMigration(this IServiceCollection services)
+    internal static IServiceCollection AddFlagsMigration(this IServiceCollection services, IHostEnvironment environment)
     {
-        _ = services.AddHttpClient<IFlagRetriever, FlagRetriever>(client =>
+        IHttpClientBuilder builder = services.AddHttpClient<IFlagRetriever, FlagRetriever>(client =>
         {
             client.DefaultRequestVersion = HttpVersion.Version20;
             client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
-        }).RemoveAllLoggers();
+        });
+
+        if (!environment.IsDevelopment())
+            _ = builder.RemoveAllLoggers();
 
         return services
             .AddTransient<IMigrator, FlagMigrator>()

@@ -2,8 +2,11 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Flags.Abstractions;
+using Atlas.Application.Flags.Mappers;
 using Atlas.Contracts.Flags;
 using MediatR;
+using FlagDomain = Atlas.Domain.Flags.Flag;
+using GuessedFlagDomain = Atlas.Domain.Flags.GuessedFlag;
 
 namespace Atlas.Application.Flags.Handlers;
 
@@ -11,11 +14,11 @@ internal sealed class GuessCommandHandler(IFlagRepository flagRepository, IFlagG
 {
     public async Task<GuessedFlag> Handle(FlagRequests.Guess request, CancellationToken cancellationToken)
     {
-        Domain.Flags.Flag flagToGuess = await flagRepository.GetAsync(request.FlagCode, cancellationToken).ConfigureAwait(false);
-        Domain.Flags.Flag guessedFlag = await flagRepository.GetAsync(request.GuessedFlagCode, cancellationToken).ConfigureAwait(false);
+        FlagDomain flagToGuess = await flagRepository.GetAsync(request.FlagCode, cancellationToken).ConfigureAwait(false);
+        FlagDomain guessedFlag = await flagRepository.GetAsync(request.GuessedFlagCode, cancellationToken).ConfigureAwait(false);
 
-        Domain.Flags.GuessedFlag flag = flagGuesser.Guess(flagToGuess, guessedFlag);
+        GuessedFlagDomain flag = flagGuesser.Guess(flagToGuess, guessedFlag);
 
-        return flag.AsGuessedFlagContract();
+        return flag.AsContract();
     }
 }

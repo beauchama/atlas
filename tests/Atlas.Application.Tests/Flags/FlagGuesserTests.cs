@@ -18,7 +18,7 @@ public sealed class FlagGuesserTests
 
         guessedFlag.IsSuccess.Should().BeTrue();
         guessedFlag.Code.Should().Be(FakeFlag.CanadaFlag.Code);
-        guessedFlag.Translations.Should().Be(FakeFlag.CanadaFlag.Translations);
+        guessedFlag.Translations.Should().BeEquivalentTo(FakeFlag.CanadaFlag.Translations);
         guessedFlag.Distance.Should().Be(Distance.Zero);
         guessedFlag.Direction.Should().Be(Direction.Zero);
         guessedFlag.SameContinent.Should().BeTrue();
@@ -32,7 +32,7 @@ public sealed class FlagGuesserTests
 
         guessedFlag.IsSuccess.Should().BeFalse();
         guessedFlag.Code.Should().Be(FakeFlag.ItalyFlag.Code);
-        guessedFlag.Translations.Should().Be(FakeFlag.ItalyFlag.Translations);
+        guessedFlag.Translations.Should().BeEquivalentTo(FakeFlag.ItalyFlag.Translations);
 
         guessedFlag.Distance.Kilometers.Should().BeApproximately(6843.3, 0.5);
         guessedFlag.Distance.Miles.Should().BeApproximately(4252.2, 0.5);

@@ -4,29 +4,13 @@
 using Atlas.Migration.App.Extensions;
 using Atlas.Migration.App.Fakes;
 using Atlas.Migration.App.Fixtures;
-using Atlas.Migration.App.Geography.Converters;
+using Atlas.Migration.App.Translations.Dto;
 using System.Text.Json.Serialization;
 
 namespace Atlas.Migration.App.Flags.Dto;
 
 public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixture<SampleDeserializer>
 {
-    [Theory, ClassData(typeof(Countries))]
-    public void FlagShouldHaveTheCommonCountryName(string country, ICountryData countryData)
-    {
-        FlagDto flag = DeserializeToFlagDto(country);
-
-        flag.Name.Common.Should().Be(countryData.Common);
-    }
-
-    [Theory, ClassData(typeof(Countries))]
-    public void FlagShouldHaveTheOfficialCountryName(string country, ICountryData countryData)
-    {
-        FlagDto flag = DeserializeToFlagDto(country);
-
-        flag.Name.Official.Should().Be(countryData.Official);
-    }
-
     [Fact]
     public void FlagShouldHaveJsonPropertyNameForCountryCode()
     {
@@ -44,6 +28,15 @@ public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixtur
     }
 
     [Theory, ClassData(typeof(Countries))]
+    public void FlagShouldHaveTheName(string country, ICountryData countryData)
+    {
+        FlagDto flag = DeserializeToFlagDto(country);
+
+        flag.Name.Common.Should().Be(countryData.Common);
+        flag.Name.Official.Should().Be(countryData.Official);
+    }
+
+    [Theory, ClassData(typeof(Countries))]
     public void FlagShouldHaveTheRegion(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
@@ -52,14 +45,15 @@ public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixtur
     }
 
     [Theory, ClassData(typeof(Countries))]
-    public void FlagShouldHaveTheFrenchTranslation(string country, ICountryData countryData)
+    public void FlagShouldHaveTranslations(string country, ICountryData countryData)
     {
         FlagDto flag = DeserializeToFlagDto(country);
 
-        (string common, string official) = flag.Translations.French;
+        TranslationDto translation = flag.Translations.First(t => t.Code.Equals("fra", StringComparison.Ordinal));
 
-        common.Should().Be(countryData.FrenchCommon);
-        official.Should().Be(countryData.FrenchOfficial);
+        translation.Code.Should().Be("fra");
+        translation.Common.Should().Be(countryData.FrenchCommon);
+        translation.Official.Should().Be(countryData.FrenchOfficial);
     }
 
     [Fact]
@@ -68,15 +62,6 @@ public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixtur
         JsonPropertyNameAttribute? attribute = typeof(FlagDto).GetAttribute<JsonPropertyNameAttribute>(nameof(FlagDto.Coordinate));
 
         attribute!.Name.Should().Be("latlng");
-    }
-
-    [Fact]
-    public void FlagShouldHaveJsonConverterToConvertCoordinate()
-    {
-        JsonConverterAttribute? attribute = typeof(FlagDto).GetAttribute<JsonConverterAttribute>(nameof(FlagDto.Coordinate));
-
-        attribute.Should().NotBeNull();
-        attribute!.ConverterType.Should().Be<GeographicCoordinateDtoJsonConverter>();
     }
 
     [Theory, ClassData(typeof(Countries))]
@@ -100,14 +85,14 @@ public sealed class FlagDtoTests(SampleDeserializer deserializer) : IClassFixtur
 
     private FlagDto DeserializeToFlagDto(string country)
         => deserializer.Deserialize(country, FlagDtoJsonContext.Default.FlagDto);
-}
 
-file sealed class Countries : TheoryData<string, ICountryData>
-{
-    public Countries()
+    internal sealed class Countries : TheoryData<string, ICountryData>
     {
-        Add(nameof(Italy), new Italy());
-        Add(nameof(SouthAfrica), new SouthAfrica());
-        Add(nameof(Antarctica), new Antarctica());
+        public Countries()
+        {
+            Add(nameof(Italy), new Italy());
+            Add(nameof(SouthAfrica), new SouthAfrica());
+            Add(nameof(Antarctica), new Antarctica());
+        }
     }
 }

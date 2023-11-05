@@ -2,8 +2,10 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Application.Flags.Abstractions;
+using Atlas.Application.Flags.Mappers;
 using Atlas.Contracts.Flags;
 using MediatR;
+using FlagDomain = Atlas.Domain.Flags.Flag;
 
 namespace Atlas.Application.Flags.Handlers;
 
@@ -11,8 +13,8 @@ internal sealed class GetAllQueryHandler(IFlagRepository flagRepository) : IRequ
 {
     public async Task<IEnumerable<Flag>> Handle(FlagRequests.GetAll request, CancellationToken cancellationToken)
     {
-        IEnumerable<Domain.Flags.Flag> flags = await flagRepository.GetAllAsync(cancellationToken).ConfigureAwait(false);
+        IEnumerable<FlagDomain> flags = await flagRepository.GetAllAsync(cancellationToken).ConfigureAwait(false);
 
-        return flags.AsFlagContracts();
+        return flags.AsContract();
     }
 }

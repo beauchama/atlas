@@ -10,7 +10,7 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 builder.Logging.ConfigureLogging();
 
 builder.Services
-    .AddFlagsMigration()
+    .AddFlagsMigration(builder.Environment)
     .AddApp();
 
 await builder.Build().RunAsync().ConfigureAwait(false);

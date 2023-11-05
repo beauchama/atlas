@@ -2,6 +2,7 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Contracts.Geography;
+using Atlas.Contracts.Translations;
 
 namespace Atlas.Contracts.Flags;
 
@@ -9,7 +10,7 @@ public sealed record GuessedFlag
 {
     public required string Code { get; init; }
 
-    public required Translations Translations { get; init; }
+    public required IEnumerable<Translation> Translations { get; init; }
 
     public required bool IsSuccess { get; init; }
 

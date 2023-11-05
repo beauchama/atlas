@@ -4,6 +4,7 @@
 using Atlas.Application.Flags.Abstractions;
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
+using Atlas.Domain.Translations;
 using Microsoft.Extensions.Caching.Memory;
 using NSubstitute.ReceivedExtensions;
 
@@ -16,11 +17,7 @@ public sealed class CacheFlagRepositoryTests
     private readonly Flag _canadaFlag = new()
     {
         Code = "can",
-        Translations = new Translations()
-        {
-            English = new Translation("Canada", "Canada"),
-            French = new Translation("Canada", "Canada")
-        },
+        Translations = [new Translation("fra", "Canada", "Canada"), new Translation("en", "Canada", "Canada")],
         Continent = Continent.America,
         Coordinate = new GeographicCoordinate(60, -95),
         Area = new Area(9984670)

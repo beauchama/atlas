@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Atlas.Infrastructure\Atlas.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\_data\" />
+  </ItemGroup>
+
 </Project>
