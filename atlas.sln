@@ -79,7 +79,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atlas.Migration.App.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atlas.Contracts", "src\Atlas.Contracts\Atlas.Contracts.csproj", "{F16933D2-5245-41D1-8A93-B1DECF164377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlas.Web.App", "src\Atlas.Web.App\Atlas.Web.App.csproj", "{48B9DBDE-0028-4428-9502-2B487ECB6C57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atlas.Web.App", "src\Atlas.Web.App\Atlas.Web.App.csproj", "{48B9DBDE-0028-4428-9502-2B487ECB6C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

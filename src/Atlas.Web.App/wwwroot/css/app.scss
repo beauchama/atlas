@@ -1,4 +1,7 @@
 // configure the site
 @use './utilities/reset';
-@use './utilities/themes';
+@use './utilities/theme';
 @use './utilities/typography';
+
+// components
+@use './components/icon';

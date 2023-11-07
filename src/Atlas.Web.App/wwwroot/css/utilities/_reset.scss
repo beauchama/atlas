@@ -16,7 +16,10 @@ ul, ol {
 
 img {
   max-width: 100%;
-  display: block;
+  height: auto;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (prefers-reduced-motion: reduce) {
