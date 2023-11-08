@@ -14,11 +14,11 @@ public class IconComponentBase : ComponentBase
     public IconSize Size { get; init; } = IconSize.Medium;
 
     [Parameter]
-    public string CssClass { get; set; } = string.Empty;
+    public string Css { get; set; } = string.Empty;
 
     protected override void OnParametersSet()
     {
-        CssClass += GetIconSizeCss(Size);
+        Css += GetIconSizeCss(Size);
 
         static string GetIconSizeCss(IconSize size) => size switch
         {
