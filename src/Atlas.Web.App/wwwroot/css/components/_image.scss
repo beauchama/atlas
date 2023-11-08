@@ -1,0 +1,9 @@
+$image-sizes: ('sm': 240px, 'md': 360px, 'lg': 480px);
+
+@each $size, $width in $image-sizes {
+  .img-#{$size} {
+    width: $width;
+    max-height: calc($width / 3 * 2);
+    border-radius: 8px;
+  }
+}
