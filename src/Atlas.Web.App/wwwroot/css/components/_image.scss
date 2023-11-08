@@ -1,9 +1,21 @@
 $image-sizes: ('sm': 240px, 'md': 360px, 'lg': 480px);
+$thumbnail-sizes: ('sm': 48px, 'md': 80px, 'lg': 112px);
+
+@mixin image($width, $radius) {
+  width: $width;
+  max-height: calc($width / 3 * 2);
+  border-radius: $radius;
+}
 
 @each $size, $width in $image-sizes {
   .img-#{$size} {
-    width: $width;
-    max-height: calc($width / 3 * 2);
-    border-radius: 8px;
+    @include image($width, 8px);
+  }
+}
+
+@each $size, $width in $thumbnail-sizes {
+  .thumbnail-#{$size} {
+    @include image($width, 4px);
+    max-width: unset;
   }
 }
