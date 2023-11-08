@@ -1,0 +1,9 @@
+@inherits IconComponentBase
+
+<a class="icon-btn @CssClass" @onclick="OnClick">
+    <i class="icon @Name"></i>
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+</a>
