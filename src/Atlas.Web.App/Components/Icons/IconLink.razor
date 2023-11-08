@@ -1,0 +1,9 @@
+@inherits IconComponentBase
+
+<a class="icon-link @CssClass" href="@Uri" target="_self">
+    <i class="icon @Name"></i>
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+</a>
