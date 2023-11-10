@@ -3,7 +3,7 @@ $thumbnail-sizes: ('sm': 48px, 'md': 80px, 'lg': 112px);
 
 @mixin image($width, $radius) {
   width: $width;
-  max-height: calc($width / 3 * 2);
+  aspect-ratio: 3 / 2;
   border-radius: $radius;
 }
 
@@ -16,6 +16,5 @@ $thumbnail-sizes: ('sm': 48px, 'md': 80px, 'lg': 112px);
 @each $size, $width in $thumbnail-sizes {
   .thumbnail-#{$size} {
     @include image($width, 4px);
-    max-width: unset;
   }
 }
