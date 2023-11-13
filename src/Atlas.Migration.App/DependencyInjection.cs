@@ -26,7 +26,7 @@ internal static class DependencyInjection
             client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
         });
 
-        if (!environment.IsDevelopment())
+        if (environment.IsProduction())
             _ = builder.RemoveAllLoggers();
 
         return services
