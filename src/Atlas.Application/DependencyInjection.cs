@@ -16,6 +16,6 @@ public static class DependencyInjection
     {
         return services.AddTransient<IRandomizer, Randomizer>()
             .AddTransient<IFlagGuesser, FlagGuesser>()
-            .AddMediatR(m => m.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+            .AddMediator();
     }
 }

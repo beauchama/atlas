@@ -6,7 +6,8 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
   <ItemGroup Label="Application packages">
-    <PackageVersion Include="Mediatr" Version="12.1.1" />
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.0-preview.11" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.0-preview.11" />
   </ItemGroup>
   <ItemGroup Label="Infrastructure packages">
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0-rc.2.23479.6" />

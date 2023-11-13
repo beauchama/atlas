@@ -2,7 +2,7 @@
 // The source code is licensed under MIT License.
 
 using Atlas.Contracts.Flags;
-using MediatR;
+using Mediator;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Atlas.Application.Flags;
