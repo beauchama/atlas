@@ -30,6 +30,11 @@ dotnet_diagnostic.SA1128.severity = none
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1309.md
 dotnet_diagnostic.SA1309.severity = none
 
+# SA1402: File may only contain a single type
+# using file make the type scoped to the current file
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1402.md
+dotnet_diagnostic.SA1402.severity = none
+
 # SA1413: Use trailing comma in multi-line initializers
 # Disabled because is not useful to put a trailing comma at the end of collection, array or enum
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1413.md

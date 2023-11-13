@@ -16,6 +16,8 @@ a {
 }
 
 ul, ol {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -25,6 +27,12 @@ img {
   vertical-align: middle;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+  background-color: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {

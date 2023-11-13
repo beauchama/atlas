@@ -1,0 +1,41 @@
+.autocomplete {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border: 1px solid var(--color-primary);
+
+  input {
+    font-size: var(--font-sm);
+    font-weight: 700;
+    padding: 4px 8px;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      font-weight: 700;
+      opacity: 0.5;
+    }
+  }
+
+  .dropdown {
+    max-height: 0;
+    overflow: hidden auto;
+    z-index: 3;
+
+    &.expanded {
+      max-height: 300px;
+      transition: max-height 0.6s ease-in-out;
+    }
+
+    .dropdown-item {
+      font-size: var(--font-sm);
+      font-weight: 700;
+      padding: 8px 12px;
+
+      &:hover {
+        background-color: var(--color-accent);
+        cursor: pointer;
+      }
+    }
+  }
+}
