@@ -1,0 +1,27 @@
+$icon-sizes: ('sm': 0.75rem, 'md': 1rem, 'lg': 1.25rem, 'xl': 1.5rem, 'xxl': 2rem);
+
+@each $size, $value in $icon-sizes {
+  .icon-#{$size} {
+    font-size: $value;
+  }
+}
+
+%icon-component {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .icon {
+    flex: 1 0 0;
+  }
+}
+
+.icon-btn, .icon-link {
+  @extend %icon-component;
+  cursor: pointer;
+}
+
+.icon-text {
+  @extend %icon-component;
+  cursor: default;
+}

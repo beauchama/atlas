@@ -1,0 +1,20 @@
+$image-sizes: ('sm': 240px, 'md': 360px, 'lg': 480px);
+$thumbnail-sizes: ('sm': 48px, 'md': 80px, 'lg': 112px);
+
+@mixin image($width, $radius) {
+  width: $width;
+  aspect-ratio: 3 / 2;
+  border-radius: $radius;
+}
+
+@each $size, $width in $image-sizes {
+  .img-#{$size} {
+    @include image($width, 8px);
+  }
+}
+
+@each $size, $width in $thumbnail-sizes {
+  .thumbnail-#{$size} {
+    @include image($width, 4px);
+  }
+}

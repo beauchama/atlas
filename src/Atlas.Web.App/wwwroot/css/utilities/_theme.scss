@@ -1,0 +1,24 @@
+%theme {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.dark-theme {
+  --color-primary: hsl(191, 100%, 70%);
+  --color-secondary: hsl(191, 100%, 45%);
+  --color-accent: hsl(191, 100%, 25%);
+  --color-text: hsl(192, 100%, 99%);
+  --color-background: hsl(235, 24%, 9%);
+
+  @extend %theme;
+}
+
+.light-theme {
+  --color-primary: hsl(191, 100%, 25%);
+  --color-secondary: hsl(191, 100%, 45%);
+  --color-accent: hsl(191, 100%, 70%);
+  --color-text: hsl(235, 24%, 9%);
+  --color-background: hsl(192, 100%, 99%);
+
+  @extend %theme;
+}

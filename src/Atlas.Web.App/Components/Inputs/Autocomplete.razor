@@ -1,0 +1,19 @@
+<div class="autocomplete @Css">
+    <input type="text"
+           @ref="_autocomplete"
+           @bind="_searchValue"
+           @onclick="ExpandDropdown"
+           @oninput="SearchItems"
+           @onkeydown="HandleKeyboardAsync"
+           @onfocusout="CollapseDropdown"
+           autocomplete="off"
+           placeholder="@Placeholder" />
+    <ul class="dropdown @ExpandedCss">
+        @foreach ((string value, string label) in _filteredItems)
+        {
+            <li class="dropdown-item" @onmousedown="() => SelectItemAsync(value)">
+                @label
+            </li>
+        }
+    </ul>
+</div>

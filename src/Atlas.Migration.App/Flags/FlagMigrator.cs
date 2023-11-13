@@ -18,6 +18,6 @@ internal sealed class FlagMigrator(IFlagRetriever flagRetriever, IJsonFileWriter
     {
         IEnumerable<FlagDto> flags = await flagRetriever.GetAllAsync(cancellationToken).ConfigureAwait(false);
 
-        await jsonFileWriter.WriteToAsync(path, flags.MapToDomain(), FlagJsonContext.Default.IEnumerableFlag, cancellationToken).ConfigureAwait(false);
+        await jsonFileWriter.WriteToAsync(path, flags.AsDomain(), FlagJsonContext.Default.IEnumerableFlag, cancellationToken).ConfigureAwait(false);
     }
 }

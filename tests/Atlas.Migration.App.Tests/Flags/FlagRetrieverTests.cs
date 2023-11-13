@@ -1,10 +1,10 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Infrastructure.Flags.Settings;
 using Atlas.Migration.App.Fakes;
 using Atlas.Migration.App.Fixtures;
 using Atlas.Migration.App.Flags.Dto;
+using Atlas.Migration.App.Flags.Settings;
 using Microsoft.Extensions.Options;
 using MockHttp;
 using System.Net;
@@ -85,7 +85,7 @@ public sealed class FlagRetrieverTests : IClassFixture<SampleDeserializer>, IDis
 
         flag.Code.Should().Be(italy.Code);
         flag.Name.Should().Be(italy.Name);
-        flag.Translations.Should().Be(italy.Translations);
+        flag.Translations.Should().BeEquivalentTo(italy.Translations);
         flag.Region.Should().Be(italy.Region);
         flag.Coordinate.Should().Be(italy.Coordinate);
         flag.Area.Should().Be(italy.Area);

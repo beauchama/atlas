@@ -3,7 +3,7 @@
 
 namespace Atlas.Domain.Geography;
 
-public class DistanceTests
+public sealed class DistanceTests
 {
     private readonly GeographicCoordinate _canadaCoordinate = new(60.0, -95.0);
     private readonly GeographicCoordinate _italyCoordinate = new(42.83333333, 12.83333333);

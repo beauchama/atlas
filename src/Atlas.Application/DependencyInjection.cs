@@ -1,8 +1,8 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // The source code is licensed under MIT License.
 
-using Atlas.Application.Flags.Persistence;
-using Atlas.Application.Services;
+using Atlas.Application.Flags;
+using Atlas.Application.Flags.Abstractions;
 using Atlas.Application.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
@@ -16,6 +16,6 @@ public static class DependencyInjection
     {
         return services.AddTransient<IRandomizer, Randomizer>()
             .AddTransient<IFlagGuesser, FlagGuesser>()
-            .Decorate<IFlagRepository, CachedFlagRepository>();
+            .AddMediatR(m => m.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
     }
 }

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Atlas.Migration.App": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

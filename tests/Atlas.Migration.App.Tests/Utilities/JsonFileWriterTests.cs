@@ -6,7 +6,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace Atlas.Migration.App.Utilities;
 
-public class JsonFileWriterTests
+public sealed class JsonFileWriterTests
 {
     private const string Path = "path";
     private const int Value = 42;

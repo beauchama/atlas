@@ -10,9 +10,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Atlas.Infrastructure.Settings.Validations;
 
 [ExcludeFromCodeCoverage]
-internal static class OptionsBuilderExtensions
+public static class OptionsBuilderExtensions
 {
-    internal static IServiceCollection AddFluentOptions<TOptions, TValidator>(this IServiceCollection services, string configSectionPath)
+    public static IServiceCollection AddFluentOptions<TOptions, TValidator>(this IServiceCollection services, string configSectionPath)
         where TOptions : class
         where TValidator : class, IValidator<TOptions>
     {

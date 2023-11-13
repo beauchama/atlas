@@ -3,8 +3,7 @@
 
 using Atlas.Domain.Flags;
 using Atlas.Domain.Geography;
-using Atlas.Infrastructure.Flags.Settings;
-using Microsoft.Extensions.Options;
+using Atlas.Domain.Translations;
 using MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -15,33 +14,27 @@ public sealed class FlagRepositoryTests : IDisposable
 {
     private readonly MockHttpHandler _handler = new();
     private readonly HttpClient _httpClient;
-    private readonly FlagSourceSettings _flagSourceSettings = new()
+
+    private readonly Flag _canadaFlag = new()
     {
-        Endpoint = new Uri("https://localhost/flags"),
+        Code = "can",
+        Translations = [new Translation("fra", "Canada", "Canada"), new Translation("en", "Canada", "Canada")],
+        Continent = Continent.America,
+        Coordinate = new GeographicCoordinate(60, -95),
+        Area = new Area(9984670)
     };
 
     private readonly FlagRepository _flagRepository;
 
     public FlagRepositoryTests()
     {
-        _httpClient = new HttpClient(_handler);
-        IOptions<FlagSourceSettings> options = Options.Create(_flagSourceSettings);
-
-        _flagRepository = new FlagRepository(_httpClient, options);
-    }
-
-    private static Flag CanadaFlag { get; } = new()
-    {
-        Code = "can",
-        Translations = new Translations()
+        _httpClient = new HttpClient(_handler)
         {
-            English = new Translation("eng", "Canada", "Canada"),
-            French = new Translation("fra", "Canada", "Canada")
-        },
-        Continent = Continent.America,
-        Coordinate = new GeographicCoordinate(60, -95),
-        Area = 9984670
-    };
+            BaseAddress = new Uri("http://localhost")
+        };
+
+        _flagRepository = new FlagRepository(_httpClient);
+    }
 
     public void Dispose()
     {
@@ -55,19 +48,19 @@ public sealed class FlagRepositoryTests : IDisposable
         string json = JsonSerializer.Serialize([], FlagJsonContext.Default.IEnumerableFlag);
 
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.OK).Body(json));
 
         _ = await _flagRepository.GetAllAsync();
 
-        await _handler.VerifyAsync(h => h.Method(HttpMethod.Get).RequestUri(_flagSourceSettings.Endpoint), IsSent.Once());
+        await _handler.VerifyAsync(h => h.Method(HttpMethod.Get).RequestUri(JsonPaths.Flags), IsSent.Once());
     }
 
     [Fact]
     public async Task GetAllAsyncShouldGetEmptyArrayWhenIsNotSuccess()
     {
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.NotFound));
 
         IEnumerable<Flag> flags = await _flagRepository.GetAllAsync();
@@ -78,10 +71,10 @@ public sealed class FlagRepositoryTests : IDisposable
     [Fact]
     public async Task GetAllAsyncShouldGetFlags()
     {
-        string json = JsonSerializer.Serialize([CanadaFlag], FlagJsonContext.Default.IEnumerableFlag);
+        string json = JsonSerializer.Serialize([_canadaFlag], FlagJsonContext.Default.IEnumerableFlag);
 
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.OK).Body(json));
 
         IEnumerable<Flag> flags = await _flagRepository.GetAllAsync();
@@ -90,28 +83,28 @@ public sealed class FlagRepositoryTests : IDisposable
 
         Flag flag = flags.First();
 
-        flag.Should().Be(CanadaFlag);
+        flag.Code.Should().Be(_canadaFlag.Code);
     }
 
     [Fact]
     public async Task GetAsyncShouldGetFromHttp()
     {
-        string json = JsonSerializer.Serialize([CanadaFlag], FlagJsonContext.Default.IEnumerableFlag);
+        string json = JsonSerializer.Serialize([_canadaFlag], FlagJsonContext.Default.IEnumerableFlag);
 
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.OK).Body(json));
 
-        _ = await _flagRepository.GetAsync(CanadaFlag.Code);
+        _ = await _flagRepository.GetAsync(_canadaFlag.Code);
 
-        await _handler.VerifyAsync(h => h.Method(HttpMethod.Get).RequestUri(_flagSourceSettings.Endpoint), IsSent.Once());
+        await _handler.VerifyAsync(h => h.Method(HttpMethod.Get).RequestUri(JsonPaths.Flags), IsSent.Once());
     }
 
     [Fact]
     public Task GetAsyncShouldThrowWhenIsNotSuccess()
     {
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.NotFound));
 
         Func<Task> act = async () => await _flagRepository.GetAsync(string.Empty);
@@ -122,14 +115,14 @@ public sealed class FlagRepositoryTests : IDisposable
     [Fact]
     public async Task GetAsyncShouldGetTheFlag()
     {
-        string json = JsonSerializer.Serialize([CanadaFlag], FlagJsonContext.Default.IEnumerableFlag);
+        string json = JsonSerializer.Serialize([_canadaFlag], FlagJsonContext.Default.IEnumerableFlag);
 
         _handler
-            .When(x => x.RequestUri(_flagSourceSettings.Endpoint))
+            .When(x => x.RequestUri(JsonPaths.Flags))
             .Respond(x => x.StatusCode(HttpStatusCode.OK).Body(json));
 
-        Flag? flag = await _flagRepository.GetAsync(CanadaFlag.Code);
+        Flag? flag = await _flagRepository.GetAsync(_canadaFlag.Code);
 
-        flag.Should().Be(CanadaFlag);
+        flag.Code.Should().Be(_canadaFlag.Code);
     }
 }

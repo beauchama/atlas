@@ -9,11 +9,12 @@ using NSubstitute.ReceivedExtensions;
 
 namespace Atlas.Migration.App;
 
-public class AtlasApplicationTests
+public sealed class AtlasApplicationTests
 {
     private readonly IHostEnvironment _environment = Substitute.For<IHostEnvironment>();
     private readonly IDirectory _directory = Substitute.For<IDirectory>();
     private readonly IHostApplicationLifetime _applicationLifetime = Substitute.For<IHostApplicationLifetime>();
+    private readonly IStopwatch _stopwatch = Substitute.For<IStopwatch>();
     private readonly IMigrator _flagMigrator = Substitute.For<IMigrator>();
     private readonly IMigrator _countryMigrator = Substitute.For<IMigrator>();
 
@@ -26,16 +27,10 @@ public class AtlasApplicationTests
         _flagMigrator.Filename.Returns("flags.json");
         _countryMigrator.Filename.Returns("countries.json");
 
-        _atlas = new AtlasApplication(_environment, _directory, _applicationLifetime, logger, [_flagMigrator, _countryMigrator]);
+        _atlas = new AtlasApplication(_environment, _directory, _applicationLifetime, _stopwatch, logger, [_flagMigrator, _countryMigrator]);
     }
 
-    public static TheoryData<string, string> EnvironmentPaths { get; } = new()
-    {
-        { "../../../../", Environments.Development },
-        { "../../", Environments.Production },
-    };
-
-    [Theory, MemberData(nameof(EnvironmentPaths))]
+    [Theory, ClassData(typeof(EnvironmentPaths))]
     public async Task StartAsyncShouldSearchWwwRootWithTheGoodPathDependingOfTheEnvironment(string path, string environment)
     {
         const string rootPath = "a/b/c/d/e/f/g";
@@ -79,5 +74,14 @@ public class AtlasApplicationTests
         await _atlas.StartAsync(CancellationToken.None);
 
         _applicationLifetime.Received(Quantity.Exactly(1)).StopApplication();
+    }
+}
+
+file sealed class EnvironmentPaths : TheoryData<string, string>
+{
+    public EnvironmentPaths()
+    {
+        Add("../../../../", Environments.Development);
+        Add("../../", Environments.Production);
     }
 }

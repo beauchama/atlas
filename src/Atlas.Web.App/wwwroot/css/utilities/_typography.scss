@@ -1,0 +1,36 @@
+:root {
+  --font-sm: 0.75rem;
+  --font-md: 1rem;
+  --font-lg: 1.25rem;
+  --font-xl: 1.5rem;
+  --font-xxl: 2rem;
+}
+
+html {
+  font-size: 1rem;
+}
+
+body {
+  font-family: Montserrat;
+}
+
+$font-sizes: (
+  sm: (h: h5, size: var(--font-sm), weight: 600),
+  md: (h: h4, size: var(--font-md), weight: 700),
+  lg: (h: h3, size: var(--font-lg), weight: 700),
+  xl: (h: h2, size: var(--font-xl), weight: 800),
+  xxl: (h: h1, size: var(--font-xxl), weight: 800)
+);
+
+@each $size, $values in $font-sizes {
+  #{map-get($values, 'h')} {
+    font-size: map-get($values, 'size');
+    font-weight: map-get($values, 'weight');
+    line-height: 1.5;
+  }
+
+  .text-#{$size} {
+    font-size: map-get($values, 'size');
+    font-weight: map-get($values, 'weight');
+  }
+}

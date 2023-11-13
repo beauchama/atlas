@@ -6,15 +6,6 @@
 # Reason: Don't need to use ConfigureAwait(false) for test methods
 dotnet_diagnostic.MA0004.severity = none
 
-# Reason: Don't need to make test classes sealed
-# https://github.com/meziantou/Meziantou.Analyzer/blob/main/docs/Rules/MA0053.md
-dotnet_diagnostic.MA0053.severity = none
-
-# MA0053: Make class sealed
-# Reason: Don't need to make test classes sealed
-# https://github.com/meziantou/Meziantou.Analyzer/blob/main/docs/Rules/MA0053.md
-dotnet_diagnostic.MA0053.severity = none
-
 # Disabled Microsoft.VisualStudio.Threading.Analyzers rules
 
 # VSTHRD200: Use "Async" suffix for async methods
@@ -33,6 +24,11 @@ dotnet_diagnostic.SA0001.severity = none
 # Reason: Don't need to follow the naming convention for test methods
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1313.md
 dotnet_diagnostic.SA1313.severity = none
+
+# SA1402: File may only contain a single type
+# Reason: Can have multiple types in a single file for better reading
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1402.md
+dotnet_diagnostic.SA1402.severity = none
 
 # SA1600: Elements should be documented
 # Reason: Don't need to document test projects
